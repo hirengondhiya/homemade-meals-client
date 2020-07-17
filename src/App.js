@@ -18,7 +18,13 @@ const App = () => {
 		});
 	}, []);
 
-	return <div>The basic empty template</div>;
+	return (
+		<div>
+			<BrowserRouter>
+				<h1>Homemade Meals</h1>
+			</BrowserRouter>
+		</div>
+	);
 };
 
 export default App;

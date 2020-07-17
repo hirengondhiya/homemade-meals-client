@@ -2,6 +2,7 @@ import React, { useReducer, useEffect } from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
 import mealData from '../src/data/meal_data';
 import stateReducer from './config/stateReducer';
+import { StateContext } from './config/store';
 
 const App = () => {
 	const initialState = {
@@ -20,9 +21,11 @@ const App = () => {
 
 	return (
 		<div>
-			<BrowserRouter>
-				<h1>Homemade Meals</h1>
-			</BrowserRouter>
+			<StateContext.Provider value={{ store, dispatch }}>
+				<BrowserRouter>
+					<h1>Homemade Meals</h1>
+				</BrowserRouter>
+			</StateContext.Provider>
 		</div>
 	);
 };

@@ -7,6 +7,7 @@ const intialState = {
 };
 
 const [ store, dispatch ] = useReducer(stateReducer, initialState);
+const { meals } = store;
 
 const App = () => {
 	return <div>The basic empty template</div>;

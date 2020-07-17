@@ -1,15 +1,23 @@
 import React, { useReducer, useEffect } from 'react';
-import { BrowseRouter, Router } from 'react-router-dom';
+import { BrowserRouter, Route } from 'react-router-dom';
+import mealData from '../src/data/meal_data';
 import stateReducer from './config/stateReducer';
 
-const intialState = {
-	meals: []
-};
-
-const [ store, dispatch ] = useReducer(stateReducer, initialState);
-const { meals } = store;
-
 const App = () => {
+	const initialState = {
+		meals: []
+	};
+
+	const [ store, dispatch ] = useReducer(stateReducer, initialState);
+	const { meals } = store;
+
+	useEffect(() => {
+		dispatch({
+			type: 'setMeals',
+			data: mealData
+		});
+	}, []);
+
 	return <div>The basic empty template</div>;
 };
 

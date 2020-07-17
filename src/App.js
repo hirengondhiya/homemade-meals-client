@@ -24,6 +24,7 @@ const App = () => {
 			<StateContext.Provider value={{ store, dispatch }}>
 				<BrowserRouter>
 					<h1>Homemade Meals</h1>
+					<Route exact path="/" component={Meals} />
 				</BrowserRouter>
 			</StateContext.Provider>
 		</div>

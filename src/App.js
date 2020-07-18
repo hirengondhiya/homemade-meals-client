@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import AddNewMeal from './components/meals-components/AddNewMeal';
 import ViewMeal from './components/meals-components/ViewMeal';
+import EditMeal from './components/meals-components/EditMeal';
 
 const App = () => {
 	const [ meals, setMeals ] = useState([]);
@@ -24,6 +25,12 @@ const App = () => {
 		return updatedMeal;
 	}
 
+	// update meal that match id
+	function updateMeal(updatedMeal) {
+		const otherMeal = meals.filter((meal) => meal._id !== updatedMeal._id);
+		setMeals([ ...otherMeal, updatedMeal ]);
+	}
+
 	return (
 		<div>
 			<BrowserRouter>
@@ -40,6 +47,13 @@ const App = () => {
 								showControls
 								deleteMeal={deleteMeal}
 							/>
+						)}
+					/>
+					<Route
+						exact
+						path="/meals/edit/:id"
+						render={(props) => (
+							<EditMeal {...props} updateMeal={updateMeal} meal={getMealFromID(props.match.params.id)} />
 						)}
 					/>
 				</Switch>

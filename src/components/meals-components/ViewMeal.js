@@ -9,7 +9,13 @@ const ViewMeal = ({ history, meal, showControls, deleteMeal }) => {
 	function handleDelete(event) {
 		event.preventDefault();
 		deleteMeal(meal._id);
-		history.push('/meals/new');
+		history.push(`/meals/new`);
+	}
+
+	// handle edit button
+	function handleEdit(event) {
+		event.preventDefault();
+		history.push(`/meals/edit/${meal._id}`);
 	}
 
 	return (
@@ -26,6 +32,7 @@ const ViewMeal = ({ history, meal, showControls, deleteMeal }) => {
 			{showControls && (
 				<div>
 					<button onClick={handleDelete}>Delete</button>
+					<button onClick={handleEdit}>Edit</button>
 				</div>
 			)}
 		</div>

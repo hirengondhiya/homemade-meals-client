@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { withRouter } from 'react-router-dom';
 
-const AddNewMeal = ({ addMeal }) => {
+const AddNewMeal = ({ history, addMeal }) => {
 	function handleChange(event) {
 		const name = event.target.name;
 		const value = event.target.value;
@@ -16,7 +16,7 @@ const AddNewMeal = ({ addMeal }) => {
 		const newMeal = {
 			_id: '5f123edeb40acb71b7aaf7f1',
 			title: formState.title,
-			category: formState.description,
+			description: formState.description,
 			mealType: formState.mealType,
 			deliversOn: formState.deliversOn,
 			orderStarts: formState.orderStarts,
@@ -25,7 +25,7 @@ const AddNewMeal = ({ addMeal }) => {
 			cost: parseInt(formState.cost)
 		};
 		addMeal(newMeal);
-		history.push(`/meals/${_id}`);
+		history.push(`/meals/${newMeal._id}`);
 	}
 
 	const initialFormState = {
@@ -67,20 +67,20 @@ const AddNewMeal = ({ addMeal }) => {
 					</select>
 				</div>
 				<div>
-					<label for="deliversOn">Pickup Time (date and time):</label>
+					<label htmlFor="deliversOn">Pickup Time (date and time):</label>
 					<input required type="datetime-local" id="deliversOn" name="deliversOn" onChange={handleChange} />
 				</div>
 				<div>
-					<label for="orderStarts"> Accepting order from (date and time):</label>
+					<label htmlFor="orderStarts"> Accepting order from (date and time):</label>
 					<input required type="datetime-local" id="orderStarts" name="orderStarts" onChange={handleChange} />
 				</div>
 				<div>
-					<label for="orderEnds"> Order ends from (date and time):</label>
+					<label htmlFor="orderEnds"> Order ends from (date and time):</label>
 					<input required type="datetime-local" id="orderEnds" name="orderEnds" onChange={handleChange} />
 				</div>
 
 				<div>
-					<label for="maxOrders"> Max Order Quantity (between 1 and 50):</label>
+					<label htmlFor="maxOrders"> Max Order Quantity (between 1 and 50):</label>
 					<input
 						required
 						type="number"

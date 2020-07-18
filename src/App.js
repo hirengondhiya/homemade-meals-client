@@ -10,13 +10,18 @@ const App = () => {
 	// returns the meal of the id provided
 	function getMealFromID(id) {
 		let meal = meals.find((meal) => meal._id === id);
-
 		return meal;
 	}
 
 	// Add a new meal
 	function addMeal(newMeal) {
 		setMeals([ ...meals, newMeal ]);
+	}
+
+	// delete blog post that matched id
+	function deleteMeal(id) {
+		const updatedMeal = meals.find((meal) => meal._id !== id);
+		return updatedMeal;
 	}
 
 	return (
@@ -28,7 +33,14 @@ const App = () => {
 					<Route
 						exact
 						path="/meals/:id"
-						render={(props) => <ViewMeal {...props} meal={getMealFromID(props.match.params.id)} />}
+						render={(props) => (
+							<ViewMeal
+								{...props}
+								meal={getMealFromID(props.match.params.id)}
+								showControls
+								deleteMeal={deleteMeal}
+							/>
+						)}
 					/>
 				</Switch>
 			</BrowserRouter>

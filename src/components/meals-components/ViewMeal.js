@@ -1,9 +1,16 @@
 import React from 'react';
 
-const ViewMeal = ({ meal }) => {
+const ViewMeal = ({ history, meal, showControls, deleteMeal }) => {
 	if (!meal) return null;
 
 	const { title, description, mealType, deliversOn, orderStarts, orderEnds, maxOrders, cost } = meal;
+
+	// handle delete button
+	function handleDelete(event) {
+		event.preventDefault();
+		deleteMeal(meal._id);
+		history.push('/meals/new');
+	}
 
 	return (
 		<div>
@@ -16,6 +23,11 @@ const ViewMeal = ({ meal }) => {
 			<h3>Order ends: {orderEnds}</h3>
 			<h3>Max Order: {maxOrders}</h3>
 			<h3>Cost per meal: {cost}</h3>
+			{showControls && (
+				<div>
+					<button onClick={handleDelete}>Delete</button>
+				</div>
+			)}
 		</div>
 	);
 };

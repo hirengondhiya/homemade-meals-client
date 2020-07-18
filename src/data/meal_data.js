@@ -15,7 +15,7 @@ export default [
 		_id: 2,
 		title: 'Tandoori Chicken',
 		description: 'Spicy homemade meal',
-		deliversOn: '2020-07-17T16:30:00.000Z',
+		deliversOn: '2020-07-17T15:30:00.000Z',
 		orderStarts: '2020-07-1710:00:00.000Z',
 		orderEnds: '2020-07-16T14:30:00.000Z',
 		maxOrders: 15,

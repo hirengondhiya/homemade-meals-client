@@ -1,32 +1,21 @@
-import React, { useReducer, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
-import mealData from '../src/data/meal_data';
-import stateReducer from './config/stateReducer';
-import { StateContext } from './config/store';
+
+import AddNewMeal from './components/meals-components/AddNewMeal';
 
 const App = () => {
-	const initialState = {
-		meals: []
-	};
+	const [ meals, setMeals ] = useState([]);
 
-	const [ store, dispatch ] = useReducer(stateReducer, initialState);
-	const { meals } = store;
-
-	useEffect(() => {
-		dispatch({
-			type: 'setMeals',
-			data: mealData
-		});
-	}, []);
+	function addMeal(newMeal) {
+		setMeals([ ...meals, newMeal ]);
+	}
 
 	return (
 		<div>
-			<StateContext.Provider value={{ store, dispatch }}>
-				<BrowserRouter>
-					<h1>Homemade Meals</h1>
-					<Route exact path="/" component={Meals} />
-				</BrowserRouter>
-			</StateContext.Provider>
+			<BrowserRouter>
+				<h1>Homemade Meals</h1>
+				<Route exact path="/meals/new" render={(props) => <AddNewMeal {...props} addMeal={addMeal} />} />
+			</BrowserRouter>
 		</div>
 	);
 };

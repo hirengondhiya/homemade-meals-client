@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
+import { withRouter } from 'react-router-dom';
 
-const AddNewMeals = ({ addMeal }) => {
+const AddNewMeal = ({ addMeal }) => {
 	function handleChange(event) {
 		const name = event.target.name;
 		const value = event.target.value;
@@ -24,7 +25,7 @@ const AddNewMeals = ({ addMeal }) => {
 			cost: parseInt(formState.cost)
 		};
 		addMeal(newMeal);
-		// history.push(`/meals/${_id}`);
+		history.push(`/meals/${_id}`);
 	}
 
 	const initialFormState = {
@@ -100,4 +101,4 @@ const AddNewMeals = ({ addMeal }) => {
 	);
 };
 
-export default AddNewMeals;
+export default withRouter(AddNewMeal);

@@ -33,6 +33,10 @@ const App = () => {
 		setMeals([ ...otherMeal, updatedMeal ]);
 	}
 
+	function registerUser(user) {
+		setLoggedInUser(user.username);
+	}
+
 	return (
 		<div>
 			<BrowserRouter>
@@ -58,7 +62,11 @@ const App = () => {
 							<EditMeal {...props} updateMeal={updateMeal} meal={getMealFromID(props.match.params.id)} />
 						)}
 					/>
-					<Route exact path="/auth/register" render={(props) => <Register {...props} />} />
+					<Route
+						exact
+						path="/auth/register"
+						render={(props) => <Register {...props} registerUser={registerUser} />}
+					/>
 				</Switch>
 			</BrowserRouter>
 		</div>

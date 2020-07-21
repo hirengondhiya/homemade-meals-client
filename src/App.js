@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import AddNewMeal from './components/meals-components/AddNewMeal';
 import ViewMeal from './components/meals-components/ViewMeal';
 import EditMeal from './components/meals-components/EditMeal';
+import Meal from './components/meals-components/Meals';
 
 const App = () => {
 	const [ meals, setMeals ] = useState([]);
@@ -36,6 +37,7 @@ const App = () => {
 			<BrowserRouter>
 				<h1>Homemade Meals</h1>
 				<Switch>
+					<Route exact path="/" render={(props) => <Meals {...props} />} />
 					<Route exact path="/meals/new" render={(props) => <AddNewMeal {...props} addMeal={addMeal} />} />
 					<Route
 						exact

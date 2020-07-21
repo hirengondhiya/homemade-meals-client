@@ -22,9 +22,7 @@ const Register = ({ history, registerUser }) => {
 	function handleSubmit(event) {
 		event.preventDefault();
 		registerUser(userInfo);
-		if (userInfo.role === 'seller') {
-			history.push('/meals/new');
-		}
+		history.push('/');
 	}
 
 	return (

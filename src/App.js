@@ -4,7 +4,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import AddNewMeal from './components/meals-components/AddNewMeal';
 import ViewMeal from './components/meals-components/ViewMeal';
 import EditMeal from './components/meals-components/EditMeal';
-import Meal from './components/meals-components/Meals';
+import Meals from './components/meals-components/Meals';
 
 const App = () => {
 	const [ meals, setMeals ] = useState([]);

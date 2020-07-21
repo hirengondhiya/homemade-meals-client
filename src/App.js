@@ -8,6 +8,7 @@ import Register from './components/auth-components/Register';
 
 const App = () => {
 	const [ meals, setMeals ] = useState([]);
+	const [ loggedInUser, setLoggedInUser ] = useState(null);
 
 	// returns the meal of the id provided
 	function getMealFromID(id) {

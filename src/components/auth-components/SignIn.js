@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const SignIn = ({ history }) => {
+const SignIn = ({ history, loginUser }) => {
 	// inital state set to empty
 	const initialFormState = {
 		username: '',

@@ -34,8 +34,13 @@ const App = () => {
 		const otherMeal = meals.filter((meal) => meal._id !== updatedMeal._id);
 		setMeals([ ...otherMeal, updatedMeal ]);
 	}
-
+	// function to register user
 	function registerUser(user) {
+		setLoggedInUser(user.username);
+	}
+
+	// function to login user
+	function loginUser(user) {
 		setLoggedInUser(user.username);
 	}
 
@@ -70,13 +75,7 @@ const App = () => {
 						path="/auth/register"
 						render={(props) => <Register {...props} registerUser={registerUser} />}
 					/>
-					<Routes
-						exact
-						path="/auth/login"
-						render={(props) => {
-							<SignIn {...props} loginUser={loginUser} />;
-						}}
-					/>
+					<Route exact path="/auth/login" render={(props) => <SignIn {...props} loginUser={loginUser} />} />
 				</Switch>
 			</BrowserRouter>
 		</div>

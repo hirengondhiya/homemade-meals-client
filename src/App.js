@@ -69,6 +69,13 @@ const App = () => {
 						path="/auth/register"
 						render={(props) => <Register {...props} registerUser={registerUser} />}
 					/>
+					<Routes
+						exact
+						path="/auth/login"
+						render={(props) => {
+							<SignIn {...props} loginUser={loginUser} />;
+						}}
+					/>
 				</Switch>
 			</BrowserRouter>
 		</div>

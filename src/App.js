@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import AddNewMeal from './components/meals-components/AddNewMeal';
 import ViewMeal from './components/meals-components/ViewMeal';
 import EditMeal from './components/meals-components/EditMeal';
+import Register from './components/auth-components/Register';
 
 const App = () => {
 	const [ meals, setMeals ] = useState([]);
@@ -56,6 +57,7 @@ const App = () => {
 							<EditMeal {...props} updateMeal={updateMeal} meal={getMealFromID(props.match.params.id)} />
 						)}
 					/>
+					<Route exact path="/auth/register" render={(props) => <Register {...props} />} />
 				</Switch>
 			</BrowserRouter>
 		</div>

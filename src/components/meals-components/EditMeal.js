@@ -3,7 +3,6 @@ import { withRouter } from 'react-router-dom';
 
 const EditMeal = ({ history, updateMeal, meal }) => {
 	console.log('meal', meal);
-	console.log('this is hiren');
 	function handleChange(event) {
 		const name = event.target.name;
 		const value = event.target.value;

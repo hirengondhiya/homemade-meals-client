@@ -19,10 +19,9 @@ const SignIn = ({ history, loginUser }) => {
 			[name]: value
 		});
 	}
-
 	// handleSumbmit
 	function handleSubmit(event) {
-		event.prevenDefault();
+		event.preventDefault();
 		loginUser(userInfo);
 		history.push('/');
 	}
@@ -44,7 +43,10 @@ const SignIn = ({ history, loginUser }) => {
 					onChange={handleChange}
 				/>
 			</div>
-			<input type="submit" value="Login" />
+			<button>Login</button>
+			{
+				// <input type="submit" value="Login" />
+			}
 		</form>
 	);
 };

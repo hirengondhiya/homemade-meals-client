@@ -7,7 +7,19 @@ const Nav = ({ loggedInUser, logoutUser }) => {
 		<div>
 			{loggedInUser ? (
 				<div>
-					<Link to="/">{loggedInUser}</Link>
+					<Link to="/">{loggedInUser.username}</Link>
+
+					{loggedInUser.role === 'buyer' ? (
+						<div>
+							<Link to="/myOrder">My Order</Link>
+						</div>
+					) : (
+						<div>
+							<Link to="/meals/new">Create</Link>
+							<Link to="history">Meals history</Link>
+						</div>
+					)}
+
 					<Link to="/" onClick={logoutUser}>
 						Logout
 					</Link>

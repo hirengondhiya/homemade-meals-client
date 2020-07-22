@@ -37,12 +37,12 @@ const App = () => {
 	}
 	// function to register user
 	function registerUser(user) {
-		setLoggedInUser(user.username);
+		setLoggedInUser(user);
 	}
 
 	// function to login user
 	function loginUser(user) {
-		setLoggedInUser(user.username);
+		setLoggedInUser(user);
 	}
 
 	// logout user

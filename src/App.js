@@ -15,8 +15,31 @@ import {
   userAuthenticated,
 } from "./services/authServices"
 const App = () => {
-	const [ meals, setMeals ] = useState([]);
-	const [ loggedInUser, setLoggedInUser ] = useState(null);
+  const initialState = {
+    loggedInUser: null
+  }
+
+  // Create state reducer store and dispatcher
+  const [store, dispatch] = useReducer(stateReducer, initialState)
+
+  useEffect(() => {
+    // fetchBlogPosts()
+    userAuthenticated().then((user) => {
+      dispatch({
+        type: "setLoggedInUser",
+        data: user
+      })
+    }).catch((error) => {
+      console.log("got an error trying to check authenticated user:", error)
+      // setLoggedInUser(null)
+      dispatch({
+        type: "setLoggedInUser",
+        data: null
+      })
+    })
+    // return a function that specifies any actions on component unmount
+    return () => { }
+  }, [])
 
 	// returns the meal of the id provided
 	function getMealFromID(id) {
@@ -52,6 +75,7 @@ const App = () => {
 
 	return (
 		<div>
+      <StateContext.Provider value={{ store, dispatch }}>
 			<BrowserRouter>
 				<h1>Homemade Meals</h1>
 				<Switch>
@@ -76,14 +100,11 @@ const App = () => {
 							<EditMeal {...props} updateMeal={updateMeal} meal={getMealFromID(props.match.params.id)} />
 						)}
 					/>
-					<Route
-						exact
-						path="/register"
-						render={(props) => <Register {...props} registerUser={registerUser} />}
-					/>
-					<Route exact path="/login" render={(props) => <LogIn {...props} loginUser={loginUser} />} />
-				</Switch>
-			</BrowserRouter>
+            <Route exact path="/register" component={Register} />
+            <Route exact path="/login" component={Login} />
+          </Switch>
+        </BrowserRouter>
+      </StateContext.Provider>
 		</div>
 	);
 };

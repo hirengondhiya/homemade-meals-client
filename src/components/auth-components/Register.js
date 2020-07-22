@@ -11,7 +11,7 @@ const Register = ({ history }) => {
   const initialFormState = {
     username: '',
     email: '',
-    role: '',
+    role: 'buyer',
     password: ''
   };
   const [userInfo, setUserInfo] = useState(initialFormState)
@@ -33,7 +33,6 @@ const Register = ({ history }) => {
     if (password !== confirm) {
       return setErrorMessage("Password does not match. Please try again.")
     }
-
     registerUser(userInfo).then((user) => {
       dispatch({
         type: "setLoggedInUser",
@@ -74,14 +73,14 @@ const Register = ({ history }) => {
             </Form.Group>
             <Form.Group>
               <Form.Label>Role: </Form.Label>
-              <br/>
+              <br />
               <Form.Label className="ml-3">
-                <Form.Check type="radio" name="role" value="buyer" inline onClick={handleChange} />
+                <Form.Check type="radio" name="role" value="buyer" inline checked={userInfo.role==="buyer"} onClick={handleChange} />
               Buyer
               </Form.Label>
-              <br/>
+              <br />
               <Form.Label className="ml-3">
-                <Form.Check type="radio" name="role" value="seller" inline onClick={handleChange} />
+                <Form.Check type="radio" name="role" value="seller" inline checked={userInfo.role === "seller"} onClick={handleChange} />
               Seller
               </Form.Label>
             </Form.Group>

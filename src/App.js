@@ -8,6 +8,7 @@ import EditMeal from './components/meals-components/EditMeal';
 import Register from './components/auth-components/Register';
 import Meals from './components/meals-components/Meals';
 import Login from './components/auth-components/Login';
+import Nav from './components/Nav';
 
 import { StateContext } from './config/store'
 import stateReducer from './config/stateReducer'
@@ -75,29 +76,30 @@ const App = () => {
     <div>
       <StateContext.Provider value={{ store, dispatch }}>
         <BrowserRouter>
+          <Nav />
           <h1>Homemade Meals</h1>
           <Switch>
             <Route exact path="/" render={(props) => <Meals {...props} />} />
-              <Route exact path="/meals/new" render={(props) => <AddNewMeal {...props} addMeal={addMeal} />} />
-              <Route
-                exact
-                path="/meals/:id"
-                render={(props) => (
-                  <ViewMeal
-                    {...props}
-                    meal={getMealFromID(props.match.params.id)}
-                    showControls
-                    deleteMeal={deleteMeal}
-                  />
-                )}
-              />
-              <Route
-                exact
-                path="/meals/edit/:id"
-                render={(props) => (
-                  <EditMeal {...props} updateMeal={updateMeal} meal={getMealFromID(props.match.params.id)} />
-                )}
-              />
+            <Route exact path="/meals/new" render={(props) => <AddNewMeal {...props} addMeal={addMeal} />} />
+            <Route
+              exact
+              path="/meals/:id"
+              render={(props) => (
+                <ViewMeal
+                  {...props}
+                  meal={getMealFromID(props.match.params.id)}
+                  showControls
+                  deleteMeal={deleteMeal}
+                />
+              )}
+            />
+            <Route
+              exact
+              path="/meals/edit/:id"
+              render={(props) => (
+                <EditMeal {...props} updateMeal={updateMeal} meal={getMealFromID(props.match.params.id)} />
+              )}
+            />
             <Route exact path="/register" component={Register} />
             <Route exact path="/login" component={Login} />
           </Switch>

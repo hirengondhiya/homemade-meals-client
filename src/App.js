@@ -6,7 +6,7 @@ import ViewMeal from './components/meals-components/ViewMeal';
 import EditMeal from './components/meals-components/EditMeal';
 import Register from './components/auth-components/Register';
 import Meals from './components/meals-components/Meals';
-import SignIn from './components/auth-components/SignIn';
+import LogIn from './components/auth-components/LogIn';
 
 const App = () => {
 	const [ meals, setMeals ] = useState([]);
@@ -75,7 +75,7 @@ const App = () => {
 						path="/register"
 						render={(props) => <Register {...props} registerUser={registerUser} />}
 					/>
-					<Route exact path="/login" render={(props) => <SignIn {...props} loginUser={loginUser} />} />
+					<Route exact path="/login" render={(props) => <LogIn {...props} loginUser={loginUser} />} />
 				</Switch>
 			</BrowserRouter>
 		</div>

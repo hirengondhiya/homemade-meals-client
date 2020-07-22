@@ -6,7 +6,7 @@ import ViewMeal from './components/meals-components/ViewMeal';
 import EditMeal from './components/meals-components/EditMeal';
 import Register from './components/auth-components/Register';
 import Meals from './components/meals-components/Meals';
-import LogIn from './components/auth-components/LogIn';
+import Login from './components/auth-components/Login';
 
 const App = () => {
 	const [ meals, setMeals ] = useState([]);

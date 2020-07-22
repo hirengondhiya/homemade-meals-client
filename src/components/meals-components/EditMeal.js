@@ -3,6 +3,7 @@ import { withRouter } from 'react-router-dom';
 
 const EditMeal = ({ history, updateMeal, meal }) => {
 	console.log('meal', meal);
+	console.log('this is hiren');
 	function handleChange(event) {
 		const name = event.target.name;
 		const value = event.target.value;
@@ -49,14 +50,7 @@ const EditMeal = ({ history, updateMeal, meal }) => {
 			console.log('this runs');
 			meal &&
 				setFormState({
-					title: meal.title,
-					description: meal.description,
-					mealType: meal.mealType,
-					deliversOn: meal.deliversOn,
-					orderStarts: meal.orderStarts,
-					orderEnds: meal.orderEnds,
-					maxOrders: meal.maxOrders,
-					cost: meal.maxOrders
+					...meal
 				});
 		},
 		[ meal ]

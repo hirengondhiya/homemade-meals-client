@@ -17,7 +17,7 @@ const AddNewMeal = ({ history, addMeal }) => {
 			_id: '5f123edeb40acb71b7aaf7f1',
 			title: formState.title,
 			description: formState.description,
-			mealType: formState.mealType,
+			mealType: formState.mealType || 'lunch',
 			deliversOn: formState.deliversOn,
 			orderStarts: formState.orderStarts,
 			orderEnds: formState.orderEnds,

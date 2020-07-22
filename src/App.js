@@ -7,6 +7,7 @@ import EditMeal from './components/meals-components/EditMeal';
 import Register from './components/auth-components/Register';
 import Meals from './components/meals-components/Meals';
 import LogIn from './components/auth-components/LogIn';
+import Nav from './components/Nav';
 
 const App = () => {
 	const [ meals, setMeals ] = useState([]);
@@ -44,9 +45,16 @@ const App = () => {
 		setLoggedInUser(user.username);
 	}
 
+	// logout user
+	// setLoggedInUser to null
+	function logoutUser() {
+		setLoggedInUser(null);
+	}
+
 	return (
 		<div>
 			<BrowserRouter>
+				<Nav loginInUser={loggedInUser} logoutUser={logoutUser} />
 				<h1>Homemade Meals</h1>
 				<Switch>
 					<Route exact path="/" render={(props) => <Meals {...props} />} />

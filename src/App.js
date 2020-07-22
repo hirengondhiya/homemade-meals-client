@@ -9,6 +9,11 @@ import Register from './components/auth-components/Register';
 import Meals from './components/meals-components/Meals';
 import Login from './components/auth-components/Login';
 
+import { StateContext } from './config/store'
+import stateReducer from './config/stateReducer'
+import {
+  userAuthenticated,
+} from "./services/authServices"
 const App = () => {
 	const [ meals, setMeals ] = useState([]);
 	const [ loggedInUser, setLoggedInUser ] = useState(null);

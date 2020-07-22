@@ -1,4 +1,9 @@
-import { Form, Button, Container, FormControl, Row, Col } from 'react-bootstrap'
+import Form from 'react-bootstrap/Form'
+import Button from 'react-bootstrap/Button'
+import Container from 'react-bootstrap/Container'
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
+
 import React, { useState } from 'react';
 import { useGlobalState } from '../../config/store'
 import { loginUser } from '../../services/authServices'
@@ -44,15 +49,21 @@ const Login = ({ history }) => {
     <Container>
       <Row className="justify-content-center">
         <Col sm={4}>
-          <Form onSubmit={handleSubmit} className="d-flex flex-wrap">
+          <Form onSubmit={handleSubmit}>
             <h2>Login</h2>
             {
               errorMessage &&
               <p className="text-danger mt-3">{errorMessage}</p>
             }
-            <FormControl type="text" name="username" required placeholder="Username" onChange={handleChange} className="mt-3" />
-            <FormControl type="password" name="password" required placeholder="Password" onChange={handleChange} className="mt-3" />
-            <Button variant="primary" type="submit" className="mt-3 mx-auto" >Submit</Button>
+            <Form.Group>
+              <Form.Label>Username</Form.Label>
+              <Form.Control type="text" name="username" required placeholder="Enter username" onChange={handleChange} />
+            </Form.Group>
+            <Form.Group>
+              <Form.Label>Password</Form.Label>
+              <Form.Control type="password" name="password" required placeholder="Enter password" onChange={handleChange} />
+            </Form.Group>
+            <Button variant="primary" type="submit" className="mt-3" >Submit</Button>
           </Form>
         </Col>
       </Row>

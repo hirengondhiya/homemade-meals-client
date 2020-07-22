@@ -1,4 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.css';
+import React, { useState, useReducer, useEffect } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import AddNewMeal from './components/meals-components/AddNewMeal';

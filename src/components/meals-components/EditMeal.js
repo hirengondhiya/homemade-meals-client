@@ -49,14 +49,7 @@ const EditMeal = ({ history, updateMeal, meal }) => {
 			console.log('this runs');
 			meal &&
 				setFormState({
-					title: meal.title,
-					description: meal.description,
-					mealType: meal.mealType,
-					deliversOn: meal.deliversOn,
-					orderStarts: meal.orderStarts,
-					orderEnds: meal.orderEnds,
-					maxOrders: meal.maxOrders,
-					cost: meal.maxOrders
+					...meal
 				});
 		},
 		[ meal ]

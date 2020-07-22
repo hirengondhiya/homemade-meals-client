@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import AddNewMeal from './components/meals-components/AddNewMeal';

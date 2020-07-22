@@ -54,7 +54,7 @@ const App = () => {
 	return (
 		<div>
 			<BrowserRouter>
-				<Nav loginInUser={loggedInUser} logoutUser={logoutUser} />
+				<Nav loggedInUser={loggedInUser} logoutUser={logoutUser} />
 				<h1>Homemade Meals</h1>
 				<Switch>
 					<Route exact path="/" render={(props) => <Meals {...props} />} />

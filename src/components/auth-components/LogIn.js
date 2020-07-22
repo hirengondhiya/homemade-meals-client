@@ -48,7 +48,7 @@ const Login = ({ history }) => {
   return (
     <Container>
       <Row className="justify-content-center">
-        <Col sm={4}>
+        <Col lg={4}>
           <Form onSubmit={handleSubmit}>
             <h2>Login</h2>
             {

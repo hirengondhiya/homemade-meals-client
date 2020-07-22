@@ -15,6 +15,8 @@ const Register = ({ history, registerUser }) => {
 		const value = event.target.value;
 		setUserInfo({
 			...userInfo,
+			role: userInfo.role || 'buyer',
+
 			[name]: value
 		});
 	}

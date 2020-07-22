@@ -46,7 +46,6 @@ const EditMeal = ({ history, updateMeal, meal }) => {
 	useEffect(
 		() => {
 			// Set the formState to the fields in the post after mount and when post changes
-			console.log('this runs');
 			meal &&
 				setFormState({
 					...meal

@@ -11,6 +11,12 @@ import React, { useState } from 'react';
 import { withRouter } from 'react-router-dom';
 
 const AddNewMeal = ({ history, addMeal }) => {
+  // check if user is logged in otherwise route to login screen
+  // provide return url
+  // if (!loggedInUser) {
+  //   history.push("/login")
+  // }
+
   function handleChange(event) {
     const name = event.target.name;
     const value = event.target.value;
@@ -53,7 +59,7 @@ const AddNewMeal = ({ history, addMeal }) => {
   const deliversOnMin = initialFormState.deliversOn
   const maxDate = moment().add(7, 'days').toDate()
 
-
+  // check if logged in user is seller otherwise show message you can not create a meal
   return (
     <Container>
       <Row>
@@ -77,7 +83,6 @@ const AddNewMeal = ({ history, addMeal }) => {
             </Form.Group>
             <Form.Group>
               <Form.Label>Meal Type</Form.Label>
-
               <br />
               <Form.Label className="ml-3">
                 <Form.Check type="radio" name="mealType" value="lunch" inline checked={formState.mealType === "lunch"} onClick={handleChange} />
@@ -88,12 +93,6 @@ const AddNewMeal = ({ history, addMeal }) => {
                 <Form.Check type="radio" name="mealType" value="dinner" inline checked={formState.mealType === "dinner"} onClick={handleChange} />
               Dinner
               </Form.Label>
-              {
-                // <select required name="mealType" onChange={handleChange}>
-                //   <option value="lunch">Lunch</option>
-                //   <option value="dinner">Dinner</option>
-                // </select>
-              }
             </Form.Group>
             <Form.Group>
               <Form.Label htmlFor="deliversOn">Pickup Time (date and time):</Form.Label>
@@ -109,9 +108,6 @@ const AddNewMeal = ({ history, addMeal }) => {
                 placeholderText="Select a date after today"
                 dateFormat="MMMM d, yyyy h:mm aa"
               />
-              {
-                // <Form.Control required type="datetime-local" id="deliversOn" name="deliversOn" onChange={handleChange} />
-              }
             </Form.Group>
             <Form.Group>
               <Form.Label htmlFor="orderStarts"> Accepting order from (date and time):</Form.Label>
@@ -126,10 +122,6 @@ const AddNewMeal = ({ history, addMeal }) => {
                 placeholderText="Select when order opens"
                 dateFormat="MMMM d, yyyy h:mm aa"
               />
-
-              {
-                // <Form.Control required type="datetime-local" id="orderStarts" name="orderStarts" onChange={handleChange} />
-              }
             </Form.Group>
             <Form.Group>
               <Form.Label htmlFor="orderEnds"> Order ends from (date and time):</Form.Label>
@@ -144,12 +136,7 @@ const AddNewMeal = ({ history, addMeal }) => {
                 placeholderText="Select when order closes"
                 dateFormat="MMMM d, yyyy h:mm aa"
               />
-
-              {
-                // <Form.Control required type="datetime-local" id="orderEnds" name="orderEnds" onChange={handleChange} />
-              }
             </Form.Group>
-
             <Form.Group>
               <Form.Label htmlFor="maxOrders"> Max Order Quantity (between 1 and 50):</Form.Label>
               <Form.Control
@@ -171,7 +158,6 @@ const AddNewMeal = ({ history, addMeal }) => {
         </Col>
       </Row>
     </Container >
-
   );
 };
 

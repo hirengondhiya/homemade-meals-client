@@ -7,7 +7,7 @@ import Col from 'react-bootstrap/Col'
 import React, { useState } from 'react';
 import { useGlobalState } from '../../config/store'
 import { loginUser } from '../../services/authServices'
-const Login = ({ history }) => {
+const Login = ({ history, location }) => {
   // inital state set to empty
   const initialFormState = {
     username: '',
@@ -19,6 +19,8 @@ const Login = ({ history }) => {
   const [errorMessage, setErrorMessage] = useState(null)
   const { dispatch } = useGlobalState()
 
+
+  const { referrer = "/" } = location.state
   // handleChange
   function handleChange(event) {
     const { name, value } = event.target
@@ -36,10 +38,10 @@ const Login = ({ history }) => {
           type: "setLoggedInUser",
           data: user
         })
-        history.push('/');
+        history.push(referrer);
       })
       .catch((err) => {
-        const {status} = err.response || {}
+        const { status } = err.response || {}
         if (status === 401)
           setErrorMessage("Authentication failed. Please check your username and password.")
         else

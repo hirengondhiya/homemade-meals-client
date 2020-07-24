@@ -4,8 +4,7 @@ import { useGlobalState } from '../../config/store'
 // import {getLoggedInUser} from '../../services/authServices'
 
 export default ({ component: Component, location, redirectMsg, ...rest }) => {
-  const { store } = useGlobalState()
-  const { loggedInUser } = store
+  const { loggedInUser } = useGlobalState()
 
   return (
     loggedInUser ?

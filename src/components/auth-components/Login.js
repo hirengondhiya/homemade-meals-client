@@ -39,10 +39,11 @@ const Login = ({ history }) => {
         history.push('/');
       })
       .catch((err) => {
-        if (err.response && err.response.status === 401)
+        const {status} = err.response || {}
+        if (status === 401)
           setErrorMessage("Authentication failed. Please check your username and password.")
         else
-          setErrorMessage("There may be a problem with the server. Please try again after a few moments.")
+          setErrorMessage("Well, this is embarrassing... There was a problem on the server.")
       });
   }
   return (

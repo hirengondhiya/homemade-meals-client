@@ -8,8 +8,6 @@ import DatePicker from 'react-datepicker'
 import moment from 'moment'
 
 import React, { useState } from 'react';
-// import { withRouter, Redirect } from 'react-router-dom';
-// import { Redirect } from 'react-router-dom';
 
 import { useGlobalState } from '../../config/store'
 import { addMeal } from '../../services/mealServices'

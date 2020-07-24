@@ -13,6 +13,7 @@ import Login from './components/auth-components/Login';
 import Nav from './components/Nav';
 import OrderMeal from './components/order-components/OrderMeal';
 import ViewOrder from './components/order-components/ViewOrder';
+import EditOrder from './components/order-components/EditOrder';
 
 import { StateContext } from './config/store';
 import stateReducer from './config/stateReducer';
@@ -107,6 +108,7 @@ const App = () => {
 	// cancel order with the specified id
 	function cancelOrder(id) {
 		const updatedOrder = orders.find((order) => order._id !== id);
+		return updatedOrder;
 	}
 
 	// update meal that match id
@@ -186,11 +188,11 @@ const App = () => {
 								/>
 								<Route
 									exact
-									path="/order/:id/edit"
+									path="/order/edit/:id"
 									render={(props) => (
 										<EditOrder
 											{...props}
-											order={getOrderFromId(prps.match.params.id)}
+											order={getOrderFromId(props.match.params.id)}
 											updateOrder={updateOrder}
 										/>
 									)}

@@ -16,10 +16,12 @@ const Navigation = () => {
     }).catch((error) => {
       console.log("The server may be down - caught an exception on logout:", error)
     })
-    // Even if we catch an error, logout the user locally
     dispatch({
-      type: "setLoggedInUser",
-      data: null
+      type: "setInfo",
+      data: {
+        title: "Logged out",
+        msg: `See you later!`
+      }
     })
     setLoggedInUser(null)
   }

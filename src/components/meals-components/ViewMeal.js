@@ -4,6 +4,7 @@ import Button from 'react-bootstrap/Button'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
+import DatePicker from 'react-datepicker'
 
 import React from 'react';
 
@@ -59,25 +60,33 @@ const ViewMeal = ({ history, meal, showControls, deleteMeal }) => {
             <Form.Group as={Row}>
               <Form.Label column lg="2"><strong>Pickup Time</strong></Form.Label>
               <Col lg="10">
-                <Form.Control
-                  plaintext readOnly defaultValue={new Date(deliversOn).toLocaleString()}
+                <DatePicker
+                  name="deliversOn"
+                  selected={new Date(deliversOn)}
+                  dateFormat="MMMM d, yyyy h:mm aa"
+                  readOnly
                 />
               </Col>
             </Form.Group>
             <Form.Group as={Row}>
               <Form.Label column lg="2"><strong>Accepting order from</strong></Form.Label>
               <Col lg="10">
-                <Form.Control
-                  plaintext readOnly defaultValue={new Date(orderStarts).toLocaleString()}
+                <DatePicker
+                  name="deliversOn"
+                  selected={new Date(orderStarts)}
+                  dateFormat="MMMM d, yyyy h:mm aa"
+                  readOnly
                 />
               </Col>
             </Form.Group>
             <Form.Group as={Row}>
               <Form.Label column lg="2"><strong>Order ends from</strong></Form.Label>
               <Col lg="10">
-
-                <Form.Control
-                  plaintext readOnly defaultValue={new Date(orderEnds).toLocaleString()}
+                <DatePicker
+                  name="deliversOn"
+                  selected={new Date(orderEnds)}
+                  dateFormat="MMMM d, yyyy h:mm aa"
+                  readOnly
                 />
               </Col>
             </Form.Group>
@@ -109,25 +118,6 @@ const ViewMeal = ({ history, meal, showControls, deleteMeal }) => {
       </Row>
     </Container >
   );
-  // return (
-  // 	<div>
-  // 		<h1>Meal Details</h1>
-  // 		<h2>Title: {title}</h2>
-  // 		<h3>Description: {description}</h3>
-  // 		<h3>Meal Type: {mealType}</h3>
-  // 		<h3>Pickup Time: {deliversOn}</h3>
-  // 		<h3>Accepting order: {orderStarts}</h3>
-  // 		<h3>Order ends: {orderEnds}</h3>
-  // 		<h3>Max Order: {maxOrders}</h3>
-  // 		<h3>Cost per meal: {cost}</h3>
-  // 		{showControls && (
-  // 			<div>
-  // 				<button onClick={handleDelete}>Delete</button>
-  // 				<button onClick={handleEdit}>Edit</button>
-  // 			</div>
-  // 		)}
-  // 	</div>
-  // );
 };
 
 export default ViewMeal;

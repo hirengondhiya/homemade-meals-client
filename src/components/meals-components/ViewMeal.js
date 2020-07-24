@@ -1,13 +1,13 @@
 import "react-datepicker/dist/react-datepicker.css";
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
-import Container from 'react-bootstrap/Container'
+// import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import DatePicker from 'react-datepicker'
 
-import React, { useState, useEffect } from 'react';
-import { withRouter } from 'react-router-dom';
+import React, { useState } from 'react';
+// import { withRouter } from 'react-router-dom';
 
 import { useGlobalState } from '../../config/store'
 import { deleteMeal } from '../../services/mealServices'
@@ -22,6 +22,13 @@ const ViewMeal = ({ history, match, mealData }) => {
       dispatch({
         type: "setMeals",
         data: updatedMeals
+      })
+      dispatch({
+        type: "setInfo",
+        data: {
+          title: "Deleted",
+          msg: "We have deleted the meal for you."
+        }
       })
       history.push("/")
     }).catch((err) => {
@@ -43,13 +50,13 @@ const ViewMeal = ({ history, match, mealData }) => {
     history.push(`/meals/edit/${meal._id}`);
   }
 
+  const [errorMessage, setErrorMessage] = useState(null)
   const { store, dispatch } = useGlobalState()
   const { meals, loggedInUser } = store
-  const [errorMessage, setErrorMessage] = useState(null)
 
   const { id } = (match && match.params) || {}
   const meal = mealData || (id && meals && Array.isArray(meals) && meals.find((meal) => meal._id === id))
-  
+
   const {
     title,
     description,
@@ -61,16 +68,14 @@ const ViewMeal = ({ history, match, mealData }) => {
     cost
   } = meal || {};
 
-  useEffect(() => {
-    if (!meal) {
-      setErrorMessage("Oops! It appears we do not have meal with that id.")
-    }
-  }, [meal])
-
   const form = (
     <>
       <Form>
         <h1>Meal Details</h1>
+        {
+          errorMessage &&
+          <p className="text-danger mt-3">{errorMessage}</p>
+        }
         <Form.Group as={Row}>
           <Form.Label column lg="2"><strong>Title</strong></Form.Label>
           <Col lg="10">
@@ -159,20 +164,12 @@ const ViewMeal = ({ history, match, mealData }) => {
     </>
   )
   const mealNotFound = (
-    errorMessage &&
-    <p className="text-danger mt-3">{errorMessage}</p>
+    <p className="text-danger mt-3">Oops! It appears we do not have meal with that id.</p>
   )
   return (
-    <Container>
-      <Row>
-        <Col>
-          {
-            meal ? form : mealNotFound
-          }
-        </Col>
-      </Row>
-    </Container >
+    meal ? form : mealNotFound
   );
 };
 
-export default withRouter(ViewMeal);
+// export default withRouter(ViewMeal);
+export default ViewMeal

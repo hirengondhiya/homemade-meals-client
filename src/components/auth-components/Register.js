@@ -16,7 +16,7 @@ const Register = ({ history }) => {
   };
   const [userInfo, setUserInfo] = useState(initialFormState)
   const [errorMessage, setErrorMessage] = useState(null)
-  const { dispatch } = useGlobalState()
+  const { dispatch, setLoggedInUser } = useGlobalState()
 
 
   function handleChange(event) {
@@ -34,9 +34,13 @@ const Register = ({ history }) => {
       return setErrorMessage("Password does not match. Please try again.")
     }
     registerUser(userInfo).then((user) => {
+      setLoggedInUser(user)
       dispatch({
-        type: "setLoggedInUser",
-        data: user
+        type: "setInfo",
+        data: {
+          title: "Hello!",
+          msg: `Welcome to Homemade meals, ${user.username}`
+        }
       })
       history.push("/")
     }).catch((error) => {

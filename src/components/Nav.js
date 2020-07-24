@@ -16,14 +16,16 @@ const Navigation = () => {
     }).catch((error) => {
       console.log("The server may be down - caught an exception on logout:", error)
     })
-    // Even if we catch an error, logout the user locally
     dispatch({
-      type: "setLoggedInUser",
-      data: null
+      type: "setInfo",
+      data: {
+        title: "Logged out",
+        msg: `See you later!`
+      }
     })
+    setLoggedInUser(null)
   }
-  const { store, dispatch } = useGlobalState()
-  const { loggedInUser } = store
+  const { loggedInUser, setLoggedInUser, dispatch } = useGlobalState()
   // /*
   return (
     <Navbar collapseOnSelect expand="lg" bg="primary" variant="dark">

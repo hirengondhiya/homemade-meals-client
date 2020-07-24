@@ -8,7 +8,8 @@ import DatePicker from 'react-datepicker'
 import moment from 'moment'
 
 import React, { useState } from 'react';
-import { withRouter, Redirect } from 'react-router-dom';
+// import { withRouter, Redirect } from 'react-router-dom';
+// import { Redirect } from 'react-router-dom';
 
 import { useGlobalState } from '../../config/store'
 import { addMeal } from '../../services/mealServices'
@@ -38,6 +39,13 @@ const AddNewMeal = ({ history, location }) => {
       dispatch({
         type: "setMeals",
         data: [newMeal, ...meals]
+      })
+      dispatch({
+        type: "setInfo",
+        data: {
+          title: "Hurray!",
+          msg: "We have created a meal with provided information."
+        }
       })
       history.push(`/meals/${newMeal._id}`);
     }).catch((err) => {
@@ -176,7 +184,6 @@ const AddNewMeal = ({ history, location }) => {
   )
   // check if logged in user is seller otherwise show message you can not create a meal
   return (
-    loggedInUser ?
       <Container>
         <Row>
           <Col>
@@ -185,17 +192,9 @@ const AddNewMeal = ({ history, location }) => {
             }
           </Col>
         </Row>
-      </Container > :
-      <Redirect to={
-        {
-          pathname: '/login',
-          state: {
-            referrer: location.pathname,
-            msg: 'Please login to create a meal'
-          }
-        }
-      } />
+      </Container>
   );
 };
 
-export default withRouter(AddNewMeal);
+// export default withRouter(AddNewMeal);
+export default AddNewMeal;

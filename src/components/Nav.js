@@ -21,9 +21,9 @@ const Navigation = () => {
       type: "setLoggedInUser",
       data: null
     })
+    setLoggedInUser(null)
   }
-  const { store, dispatch } = useGlobalState()
-  const { loggedInUser } = store
+  const { loggedInUser, setLoggedInUser, dispatch } = useGlobalState()
   // /*
   return (
     <Navbar collapseOnSelect expand="lg" bg="primary" variant="dark">

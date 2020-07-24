@@ -178,6 +178,17 @@ const App = () => {
 										/>
 									)}
 								/>
+								<Route
+									exact
+									path="/order/:id/edit"
+									render={(props) => (
+										<EditOrder
+											{...props}
+											order={getOrderFromId(prps.match.params.id)}
+											updateOrder={upDateOrder}
+										/>
+									)}
+								/>
 							</Switch>
 						</Row>
 					</Container>

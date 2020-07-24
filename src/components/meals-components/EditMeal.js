@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
 
 const EditMeal = ({ history, updateMeal, meal }) => {
-	console.log('meal', meal);
 	function handleChange(event) {
 		const name = event.target.name;
 		const value = event.target.value;

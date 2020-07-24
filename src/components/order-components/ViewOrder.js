@@ -26,7 +26,8 @@ const ViewOrder = ({ history, order, cancelOrder, showControls }) => {
 					<h5>Total: ${parseInt(totalAmt)}</h5>
 					{showControls && (
 						<div>
-							<button onClick={handleCancel}>Cancel</button>
+							<button onClick={handleCancel}>Cancel Order</button>
+							<button>Edit</button>
 						</div>
 					)}
 				</Jumbotron>

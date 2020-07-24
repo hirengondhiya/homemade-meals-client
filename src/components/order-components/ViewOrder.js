@@ -4,8 +4,14 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Jumbotron from 'react-bootstrap/Jumbotron';
 
-const ViewOrder = ({ order }) => {
+const ViewOrder = ({ history, order, cancelOrder, showControls }) => {
 	if (!order) return null;
+
+	function handleCancel(event) {
+		event.preventDefault();
+		cancelOrder(order._id);
+		history.push('/');
+	}
 
 	const { title, quantity, pickupAt, totalAmt } = order;
 	return (
@@ -18,6 +24,11 @@ const ViewOrder = ({ order }) => {
 					<h5>Quantity ordered: {quantity}</h5>
 					<h5>Pickup time: {pickupAt}</h5>
 					<h5>Total: ${parseInt(totalAmt)}</h5>
+					{showControls && (
+						<div>
+							<button onClick={handleCancel}>Cancel</button>
+						</div>
+					)}
 				</Jumbotron>
 			</Row>
 		</Container>

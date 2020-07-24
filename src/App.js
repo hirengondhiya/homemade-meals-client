@@ -104,6 +104,11 @@ const App = () => {
 		return updatedMeal;
 	}
 
+	// cancel order with the specified id
+	function cancelOrder(id) {
+		const updatedOrder = orders.find((order) => order._id !== id);
+	}
+
 	// update meal that match id
 	function updateMeal(updatedMeal) {
 		const otherMeal = meals.filter((meal) => meal._id !== updatedMeal._id);
@@ -165,7 +170,12 @@ const App = () => {
 									exact
 									path="/order/:id"
 									render={(props) => (
-										<ViewOrder {...props} order={getOrderFromId(props.match.params.id)} />
+										<ViewOrder
+											{...props}
+											order={getOrderFromId(props.match.params.id)}
+											showControls
+											cancelOrder={cancelOrder}
+										/>
 									)}
 								/>
 							</Switch>

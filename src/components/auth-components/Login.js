@@ -14,13 +14,13 @@ const Login = ({ history, location }) => {
     password: ''
   };
 
+  const { referrer = "/", msg = null } = location.state
   // useState set to initalFormState
   const [userInfo, setUserInfo] = useState(initialFormState);
-  const [errorMessage, setErrorMessage] = useState(null)
+  const [errorMessage, setErrorMessage] = useState(msg)
   const { dispatch } = useGlobalState()
 
 
-  const { referrer = "/" } = location.state
   // handleChange
   function handleChange(event) {
     const { name, value } = event.target

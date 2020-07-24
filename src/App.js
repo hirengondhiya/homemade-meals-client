@@ -115,6 +115,12 @@ const App = () => {
 		setMeals([ ...otherMeal, updatedMeal ]);
 	}
 
+	// update Order
+	function updateOrder(orderUpdate) {
+		const otherOrder = orders.filter((order) => order._id !== orderUpdate._id);
+		setOrders([ ...otherOrder, orderUpdate ]);
+	}
+
 	return (
 		<div>
 			<StateContext.Provider value={{ store, dispatch }}>
@@ -185,7 +191,7 @@ const App = () => {
 										<EditOrder
 											{...props}
 											order={getOrderFromId(prps.match.params.id)}
-											updateOrder={upDateOrder}
+											updateOrder={updateOrder}
 										/>
 									)}
 								/>

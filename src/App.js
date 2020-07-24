@@ -10,6 +10,7 @@ import Register from './components/auth-components/Register';
 import Meals from './components/meals-components/Meals';
 import Login from './components/auth-components/Login';
 import Nav from './components/Nav';
+import ShowAlert from './components/ShowAlert';
 
 import { StateContext } from './config/store'
 import stateReducer from './config/stateReducer'
@@ -78,6 +79,7 @@ const App = () => {
       <StateContext.Provider value={{ store, dispatch }}>
         <BrowserRouter>
           <Nav />
+          <ShowAlert />
           <Container>
             <h1>Homemade Meals</h1>
             <Switch>

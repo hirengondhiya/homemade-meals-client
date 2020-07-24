@@ -14,7 +14,7 @@ const Login = ({ history, location }) => {
     password: ''
   };
 
-  const { referrer = "/", msg = null } = location.state
+  const { referrer = "/", msg = null } = location.state || {}
   // useState set to initalFormState
   const [userInfo, setUserInfo] = useState(initialFormState);
   const [errorMessage, setErrorMessage] = useState(msg)

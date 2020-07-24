@@ -5,19 +5,28 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 
 import React, { useState } from 'react';
+import { Redirect } from 'react-router-dom';
+
 import { useGlobalState } from '../../config/store'
 import { loginUser } from '../../services/authServices'
-const Login = ({ history }) => {
+const Login = ({ history, location }) => {
+  
   // inital state set to empty
   const initialFormState = {
     username: '',
     password: ''
   };
-
   // useState set to initalFormState
   const [userInfo, setUserInfo] = useState(initialFormState);
-  const [errorMessage, setErrorMessage] = useState(null)
-  const { dispatch } = useGlobalState()
+  
+  const { referrer = "/", msg = null } = location.state || {}
+  const [errorMessage, setErrorMessage] = useState(msg)
+  
+  // when user is logged in redirect back
+  const { loggedInUser, setLoggedInUser, dispatch } = useGlobalState()
+  if (loggedInUser) {
+    return <Redirect to={referrer} />
+  }
 
   // handleChange
   function handleChange(event) {
@@ -32,17 +41,26 @@ const Login = ({ history }) => {
     event.preventDefault();
     loginUser(userInfo)
       .then((user) => {
+        // dispatch({
+        //   type: "setLoggedInUser",
+        //   data: user
+        // })
+        setLoggedInUser(user)
         dispatch({
-          type: "setLoggedInUser",
-          data: user
+          type: "setInfo",
+          data: {
+            title: "Success!",
+            msg: `Welcome back, ${user.username}`
+          }
         })
-        history.push('/');
+        history.push(referrer);
       })
       .catch((err) => {
-        if (err.response && err.response.status === 401)
+        const { status } = err.response || {}
+        if (status === 401)
           setErrorMessage("Authentication failed. Please check your username and password.")
         else
-          setErrorMessage("There may be a problem with the server. Please try again after a few moments.")
+          setErrorMessage("Well, this is embarrassing... There was a problem on the server.")
       });
   }
   return (

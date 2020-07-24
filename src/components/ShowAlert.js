@@ -17,18 +17,18 @@ function ShowAlert() {
     <Container className="my-3">
       {
         error && <Alert variant="danger" onClose={() => handleClose("setError")} dismissible>
-          <Alert.Heading>Oh snap! You got an error!</Alert.Heading>
+          <Alert.Heading>{error.title || "Oh snap! You got an error!"}</Alert.Heading>
           <p>
-            {error}
+            {error.msg}
           </p>
         </Alert>
       }
       {
 
         info && <Alert variant="success" onClose={() => handleClose("setInfo")} dismissible>
-          <Alert.Heading>Hurray!</Alert.Heading>
+          <Alert.Heading>{info.title || "Hurray!"}</Alert.Heading>
           <p>
-            {info}
+            {info.msg}
           </p>
         </Alert>
       }

@@ -5,21 +5,28 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 
 import React, { useState } from 'react';
+import { Redirect } from 'react-router-dom';
+
 import { useGlobalState } from '../../config/store'
 import { loginUser } from '../../services/authServices'
 const Login = ({ history, location }) => {
+  
   // inital state set to empty
   const initialFormState = {
     username: '',
     password: ''
   };
-
-  const { referrer = "/", msg = null } = location.state || {}
   // useState set to initalFormState
   const [userInfo, setUserInfo] = useState(initialFormState);
+  
+  const { referrer = "/", msg = null } = location.state || {}
   const [errorMessage, setErrorMessage] = useState(msg)
-  const { dispatch } = useGlobalState()
-
+  
+  // when user is logged in redirect back
+  const { loggedInUser, setLoggedInUser, dispatch } = useGlobalState()
+  if (loggedInUser) {
+    return <Redirect to={referrer} />
+  }
 
   // handleChange
   function handleChange(event) {
@@ -34,9 +41,17 @@ const Login = ({ history, location }) => {
     event.preventDefault();
     loginUser(userInfo)
       .then((user) => {
+        // dispatch({
+        //   type: "setLoggedInUser",
+        //   data: user
+        // })
+        setLoggedInUser(user)
         dispatch({
-          type: "setLoggedInUser",
-          data: user
+          type: "setInfo",
+          data: {
+            title: "Success!",
+            msg: `Welcome back, ${user.username}`
+          }
         })
         history.push(referrer);
       })

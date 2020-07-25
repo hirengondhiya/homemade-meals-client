@@ -5,7 +5,7 @@ import Col from 'react-bootstrap/Col';
 import Spinner from 'react-bootstrap/Spinner';
 
 import React, { useReducer, useEffect, useState } from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 
 import AddNewMeal from './components/meals-components/AddNewMeal';
 import ViewMeal from './components/meals-components/ViewMeal';
@@ -142,10 +142,10 @@ const App = () => {
                       <Route exact path="/meals/:id" component={ViewMeal} />
                       <Route exact path="/register" component={Register} />
                       <Route exact path="/login" component={Login} />
-                      <AuthenticatedRoute exact path="/meals/edit/:id" redirectMsg="Please login to edit meal" component={EditMeal} />
-                      <AuthenticatedRoute exact path="/meals/:id/order" redirectMsg="Please login to make an order" component={OrderMeal} />
-                      <AuthenticatedRoute exact path="/orders/:id" redirectMsg="Please login to view your order" component={ViewOrder} />
-                      <AuthenticatedRoute exact path="/orders/edit/:id" redirectMsg="Please login to edit your order" component={EditOrder} />
+                      <Route render={() => {
+                        dispatch({ type: "setError", data: { title: "Sorry that page does not exist!", msg: "Please use navigation to navigate around pages." } })
+                        return <Redirect to="/" />
+                      }} />
                     </Switch>
                 }
               </Col>

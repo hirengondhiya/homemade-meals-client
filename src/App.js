@@ -42,40 +42,42 @@ const App = () => {
         console.log('An error occurred fetching meals from the server:', error);
       });
   }
-	const initialState = {
+  const initialState = {
     meals: [],
     orders: [],
-		error: null,
-		info: null
-	};
+    error: null,
+    info: null
+  };
+  const [loggedInUser, setLoggedInUser] = useState(null);
   const [loadingStatus, setLoadingStatus] = useState('loading')
 
-	// Create state reducer store and dispatcher
-	const [ store, dispatch ] = useReducer(stateReducer, initialState);
+  // Create state reducer store and dispatcher
+  const [store, dispatch] = useReducer(stateReducer, initialState);
 
-	useEffect(() => {
+  useEffect(() => {
     fetchMealData()
-		userAuthenticated()
-			.then((user) => {
-				dispatch({
-					type: 'setLoggedInUser',
-					data: user
-				});
-				setLoggedInUser(user);
-			})
-			.catch((error) => {
-				console.log('got an error trying to check authenticated user:', error);
-				setLoggedInUser(null);
-				dispatch({
-					type: 'setLoggedInUser',
-					data: null
-				});
+    userAuthenticated()
+      .then((user) => {
+        dispatch({
+          type: 'setLoggedInUser',
+          data: user
+        });
+        setLoggedInUser(user);
+      })
+      .catch((error) => {
+        console.log('got an error trying to check authenticated user:', error);
+        setLoggedInUser(null);
+        dispatch({
+          type: 'setLoggedInUser',
+          data: null
+        });
+      })
       .finally(() => {
         setLoadingStatus('session-checked')
-			});
-		// return a function that specifies any actions on component unmount
-		return () => {};
-	}, []);
+      });
+    // return a function that specifies any actions on component unmount
+    return () => { };
+  }, []);
 
   useEffect(
     () => {
@@ -88,36 +90,30 @@ const App = () => {
   );
 
 
-	const [ orders, setOrders ] = useState([]);
+  const [orders, setOrders] = useState([]);
 
-	// returns the meal of the id provided
-	function getMealFromID(id) {
-		let meal = meals.find((meal) => meal._id === id);
-		return meal;
-	}
+  // returns the order from the id
+  function getOrderFromId(id) {
+    let order = orders.find((order) => order._id === id);
+    return order;
+  }
 
-	// returns the order from the id
-	function getOrderFromId(id) {
-		let order = orders.find((order) => order._id === id);
-		return order;
-	}
+  // function add an order
+  function addOrder(newOrder) {
+    setOrders([...orders, newOrder]);
+  }
 
-	// function add an order
-	function addOrder(newOrder) {
-		setOrders([ ...orders, newOrder ]);
-	}
+  // cancel order with the specified id
+  function cancelOrder(id) {
+    const updatedOrder = orders.find((order) => order._id !== id);
+    return updatedOrder;
+  }
 
-	// cancel order with the specified id
-	function cancelOrder(id) {
-		const updatedOrder = orders.find((order) => order._id !== id);
-		return updatedOrder;
-	}
-
-	// update Order
-	function updateOrder(orderUpdate) {
-		const otherOrder = orders.filter((order) => order._id !== orderUpdate._id);
-		setOrders([ ...otherOrder, orderUpdate ]);
-	}
+  // update Order
+  function updateOrder(orderUpdate) {
+    const otherOrder = orders.filter((order) => order._id !== orderUpdate._id);
+    setOrders([...otherOrder, orderUpdate]);
+  }
 
   return (
     <div>

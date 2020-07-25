@@ -138,10 +138,17 @@ const App = () => {
                   </Spinner> :
                     <Switch>
                       <Route exact path="/" render={(props) => <Meals {...props} />} />
-                      <AuthenticatedRoute exact path="/meals/new" redirectMsg="Please login to create new meal" component={AddNewMeal} />
-                      <Route exact path="/meals/:id" component={ViewMeal} />
                       <Route exact path="/register" component={Register} />
                       <Route exact path="/login" component={Login} />
+                      
+                      <AuthenticatedRoute exact path="/meals/new" role="seller" redirectMsg="Please login to create new meal" component={AddNewMeal} />
+                      <AuthenticatedRoute exact path="/meals/:id" role="seller" component={ViewMeal} />
+                      <AuthenticatedRoute exact path="/meals/edit/:id" role="seller" redirectMsg="Please login to edit meal" component={EditMeal} />
+                      
+                      <AuthenticatedRoute exact path="/meals/:id/order" role="buyer" redirectMsg="Please login to make an order" component={OrderMeal} />
+                      <AuthenticatedRoute exact path="/orders/:id" role="buyer" redirectMsg="Please login to view your order" component={ViewOrder} />
+                      <AuthenticatedRoute exact path="/orders/edit/:id" role="buyer" redirectMsg="Please login to edit your order" component={EditOrder} />
+
                       <Route render={() => {
                         dispatch({ type: "setError", data: { title: "Sorry that page does not exist!", msg: "Please use navigation to navigate around pages." } })
                         return <Redirect to="/" />

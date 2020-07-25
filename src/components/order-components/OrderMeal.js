@@ -37,6 +37,12 @@ const OrderMeal = ({ history, match }) => {
           type: 'setOrders',
           data: [mealOrder, ...store.orders]
         })
+        dispatch({
+          type: 'setInfo',
+          data: {
+            msg: "Your order is confirmed!"
+          }
+        })
         const { orders: [order] } = mealOrder
         history.push(`/orders/${order._id}`);
       })

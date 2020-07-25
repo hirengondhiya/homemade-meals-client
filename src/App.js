@@ -161,6 +161,12 @@ const App = () => {
 										redirectMsg="Please login to edit meal"
 										component={EditMeal}
 									/>
+									<AuthenticatedRoute
+										exact
+										path="/meals"
+										redirectMsg="Please login to view your meal history"
+										component={Meals}
+									/>
 									<Route
 										exact
 										path="/meals/:id/order"

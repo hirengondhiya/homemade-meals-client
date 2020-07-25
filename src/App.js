@@ -47,12 +47,13 @@ const App = () => {
 		error: null,
 		info: null
 	};
-	const [ loggedInUser, setLoggedInUser ] = useState(null);
+  const [loadingStatus, setLoadingStatus] = useState('loading')
 
 	// Create state reducer store and dispatcher
 	const [ store, dispatch ] = useReducer(stateReducer, initialState);
 
 	useEffect(() => {
+    fetchMealData()
 		userAuthenticated()
 			.then((user) => {
 				dispatch({
@@ -68,6 +69,8 @@ const App = () => {
 					type: 'setLoggedInUser',
 					data: null
 				});
+      .finally(() => {
+        setLoadingStatus('session-checked')
 			});
 		// return a function that specifies any actions on component unmount
 		return () => {};

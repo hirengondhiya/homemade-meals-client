@@ -45,7 +45,7 @@ const ViewOrder = ({ history, match }) => {
             title: "Cancelled",
             msg: "We have cancelled your order."
           }
-        })        
+        })
         history.push(`/`);
       })
       .catch((err) => {
@@ -68,7 +68,6 @@ const ViewOrder = ({ history, match }) => {
   const buttonStyling = {
     margin: '.5em'
   };
-
   return (
     <Container>
       <Row>
@@ -111,7 +110,7 @@ const ViewOrder = ({ history, match }) => {
               </Button>
                   </>
                 )}
-            </Jumbotron>            
+            </Jumbotron>
           </div>
         </Col>
       </Row>

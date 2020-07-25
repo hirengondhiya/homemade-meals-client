@@ -51,8 +51,8 @@ const ViewMeal = ({ history, match, mealData }) => {
   }
 
   const [errorMessage, setErrorMessage] = useState(null)
-  const { store, dispatch } = useGlobalState()
-  const { meals, loggedInUser } = store
+  const { store, dispatch, loggedInUser } = useGlobalState()
+  const { meals } = store
 
   const { id } = (match && match.params) || {}
   const meal = mealData || (id && meals && Array.isArray(meals) && meals.find((meal) => meal._id === id))

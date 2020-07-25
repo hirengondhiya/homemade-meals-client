@@ -1,16 +1,16 @@
-import "react-datepicker/dist/react-datepicker.css";
-import Form from 'react-bootstrap/Form'
-import Button from 'react-bootstrap/Button'
-import Container from 'react-bootstrap/Container'
-import Row from 'react-bootstrap/Row'
-import Col from 'react-bootstrap/Col'
-import DatePicker from 'react-datepicker'
-import moment from 'moment'
+import 'react-datepicker/dist/react-datepicker.css';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import DatePicker from 'react-datepicker';
+import moment from 'moment';
 
 import React, { useState } from 'react';
 
-import { useGlobalState } from '../../config/store'
-import { addMeal } from '../../services/mealServices'
+import { useGlobalState } from '../../config/store';
+import { addMeal } from '../../services/mealServices';
 
 const AddNewMeal = ({ history, location }) => {
   function handleChange(event) {
@@ -24,38 +24,51 @@ const AddNewMeal = ({ history, location }) => {
 
   function handleSubmit(event) {
     event.preventDefault();
-    const { title, description, mealType = "lunch", deliversOn, orderStarts, orderEnds, maxOrders, cost } = formState
+    const {
+      title,
+      description,
+      mealType = 'lunch',
+      deliversOn,
+      orderStarts,
+      orderEnds,
+      maxOrders,
+      cost
+    } = formState;
     const newMeal = {
-      title, description, mealType,
+      title,
+      description,
+      mealType,
       deliversOn: deliversOn.toISOString(),
       orderStarts: orderStarts.toISOString(),
       orderEnds: orderEnds.toISOString(),
       maxOrders: parseInt(maxOrders),
       cost: parseInt(cost)
     };
-    addMeal(newMeal).then((newMeal) => {
-      dispatch({
-        type: "setMeals",
-        data: [newMeal, ...meals]
+    addMeal(newMeal)
+      .then((newMeal) => {
+        dispatch({
+          type: 'setMeals',
+          data: [newMeal, ...meals]
+        });
+        dispatch({
+          type: 'setInfo',
+          data: {
+            title: 'Hurray!',
+            msg: 'We have created a meal with provided information.'
+          }
+        });
+        history.push(`/meals/${newMeal._id}`);
       })
-      dispatch({
-        type: "setInfo",
-        data: {
-          title: "Hurray!",
-          msg: "We have created a meal with provided information."
-        }
-      })
-      history.push(`/meals/${newMeal._id}`);
-    }).catch((err) => {
-      const { status, data } = err.response || {}
-      const { errorMsg } = data || {}
-      if (status === 400)
-        setErrorMessage(errorMsg)
-      else if (status === 403)
-        setErrorMessage("Oops! It appears we lost your login session. Make sure 3rd party cookies are not blocked by your browser settings.")
-      else
-        setErrorMessage("Well, this is embarrassing... There was a problem on the server.")
-    });
+      .catch((err) => {
+        const { status, data } = err.response || {};
+        const { errorMsg } = data || {};
+        if (status === 400) setErrorMessage(errorMsg);
+        else if (status === 403)
+          setErrorMessage(
+            'Oops! It appears we lost your login session. Make sure 3rd party cookies are not blocked by your browser settings.'
+          );
+        else setErrorMessage('Well, this is embarrassing... There was a problem on the server.');
+      });
   }
 
   const initialFormState = {
@@ -69,29 +82,27 @@ const AddNewMeal = ({ history, location }) => {
     cost: ''
   };
 
-  const { store, dispatch } = useGlobalState()
-  const { loggedInUser, meals } = store
-  const [errorMessage, setErrorMessage] = useState(null)
+  const { store, dispatch, loggedInUser } = useGlobalState();
+  const { meals } = store;
+  const [errorMessage, setErrorMessage] = useState(null);
 
   const [formState, setFormState] = useState(initialFormState);
 
-  const deliversOnMin = initialFormState.deliversOn
-  const maxDate = moment().add(7, 'days').toDate()
+  const deliversOnMin = initialFormState.deliversOn;
+  const maxDate = moment().add(7, 'days').toDate();
 
   const form = (
     <Form onSubmit={handleSubmit}>
       <h2>What are we Cooking?</h2>
-      {
-        errorMessage &&
-        <p className="text-danger mt-3">{errorMessage}</p>
-      }
+      {errorMessage && <p className="text-danger mt-3">{errorMessage}</p>}
       <Form.Group>
         <Form.Label>Title</Form.Label>
         <Form.Control required type="text" name="title" placeholder="Enter title" onChange={handleChange} />
       </Form.Group>
       <Form.Group>
         <Form.Label>Description</Form.Label>
-        <Form.Control as="textarea"
+        <Form.Control
+          as="textarea"
           rows="5"
           form="newMealForm"
           required
@@ -104,14 +115,28 @@ const AddNewMeal = ({ history, location }) => {
         <Form.Label>Meal Type</Form.Label>
         <br />
         <Form.Label className="ml-3">
-          <Form.Check type="radio" name="mealType" value="lunch" inline checked={formState.mealType === "lunch"} onClick={handleChange} />
-              Lunch
-              </Form.Label>
+          <Form.Check
+            type="radio"
+            name="mealType"
+            value="lunch"
+            inline
+            checked={formState.mealType === 'lunch'}
+            onClick={handleChange}
+          />
+					Lunch
+				</Form.Label>
         <br />
         <Form.Label className="ml-3">
-          <Form.Check type="radio" name="mealType" value="dinner" inline checked={formState.mealType === "dinner"} onClick={handleChange} />
-              Dinner
-              </Form.Label>
+          <Form.Check
+            type="radio"
+            name="mealType"
+            value="dinner"
+            inline
+            checked={formState.mealType === 'dinner'}
+            onClick={handleChange}
+          />
+					Dinner
+				</Form.Label>
       </Form.Group>
       <Form.Group>
         <Form.Label htmlFor="deliversOn">Pickup Time (date and time):</Form.Label>
@@ -119,7 +144,7 @@ const AddNewMeal = ({ history, location }) => {
         <DatePicker
           name="deliversOn"
           selected={formState.deliversOn}
-          onChange={(selecteDate) => handleChange({ target: { name: "deliversOn", value: selecteDate } })}
+          onChange={(selecteDate) => handleChange({ target: { name: 'deliversOn', value: selecteDate } })}
           minDate={deliversOnMin}
           maxDate={maxDate}
           timeIntervals={15}
@@ -134,7 +159,7 @@ const AddNewMeal = ({ history, location }) => {
         <DatePicker
           name="orderStarts"
           selected={formState.orderStarts}
-          onChange={(selecteDate) => handleChange({ target: { name: "orderStarts", value: selecteDate } })}
+          onChange={(selecteDate) => handleChange({ target: { name: 'orderStarts', value: selecteDate } })}
           maxDate={moment(formState.deliversOn).add(-1, 'day')}
           timeIntervals={15}
           showTimeSelect
@@ -148,7 +173,7 @@ const AddNewMeal = ({ history, location }) => {
         <DatePicker
           name="orderEnds"
           selected={formState.orderEnds}
-          onChange={(selecteDate) => handleChange({ target: { name: "orderEnds", value: selecteDate } })}
+          onChange={(selecteDate) => handleChange({ target: { name: 'orderEnds', value: selecteDate } })}
           maxDate={moment(formState.deliversOn).add(-12, 'hours')}
           timeIntervals={15}
           showTimeSelect
@@ -172,25 +197,24 @@ const AddNewMeal = ({ history, location }) => {
         <Form.Label> Cost per meal </Form.Label>
         <Form.Control required type="number" min="1" step="any" name="cost" onChange={handleChange} />
       </Form.Group>
-      <Button variant="primary" type="submit">Add Meal</Button>
+      <Button variant="primary" type="submit">
+        Add Meal
+			</Button>
     </Form>
-  )
+  );
   const unauthorized = (
     <p className="text-danger">
-      Oops! It appears you are not an authorised seller with us. Make sure you have registered as a seller with us.
+      Oops! It appears you are not an authorised seller with us. Make sure you have registered as a seller with
+      us.
     </p>
-  )
+  );
   // check if logged in user is seller otherwise show message you can not create a meal
   return (
-      <Container>
-        <Row>
-          <Col>
-            {
-              loggedInUser.role === "seller" ? form : unauthorized
-            }
-          </Col>
-        </Row>
-      </Container>
+    <Container>
+      <Row>
+        <Col>{loggedInUser.role === 'seller' ? form : unauthorized}</Col>
+      </Row>
+    </Container>
   );
 };
 

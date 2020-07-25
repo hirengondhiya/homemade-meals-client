@@ -12,6 +12,7 @@ import React, { useState } from 'react';
 
 import { useGlobalState } from '../../config/store'
 import { deleteMeal } from '../../services/mealServices'
+import { Container } from "react-bootstrap";
 
 const ViewMeal = ({ history, match, mealData }) => {
   // handle delete button
@@ -106,7 +107,7 @@ const ViewMeal = ({ history, match, mealData }) => {
           <Form.Label column lg="2"><strong>Pickup Time</strong></Form.Label>
           <Col lg="10">
             {
-              moment(deliversOn).format('MMMM Do, YYYY h:mm a')
+              moment(deliversOn).format('MMMM Do YYYY, h:mm a')
             }
           </Col>
         </Form.Group>
@@ -114,7 +115,7 @@ const ViewMeal = ({ history, match, mealData }) => {
           <Form.Label column lg="2"><strong>Accepting order from</strong></Form.Label>
           <Col lg="10">
             {
-              moment(orderStarts).format('MMMM Do, YYYY h:mm a')
+              moment(orderStarts).format('MMMM Do YYYY, h:mm a')
             }
           </Col>
         </Form.Group>
@@ -122,7 +123,7 @@ const ViewMeal = ({ history, match, mealData }) => {
           <Form.Label column lg="2"><strong>Order ends from</strong></Form.Label>
           <Col lg="10">
             {
-              moment(orderEnds).format('MMMM Do, YYYY h:mm a')
+              moment(orderEnds).format('MMMM Do YYYY, h:mm a')
             }
           </Col>
         </Form.Group>
@@ -153,7 +154,7 @@ const ViewMeal = ({ history, match, mealData }) => {
           </>
         )
       }
-    </>
+      </>
   )
   const mealNotFound = (
     <p className="text-danger mt-3">Oops! It appears we do not have meal with that id.</p>

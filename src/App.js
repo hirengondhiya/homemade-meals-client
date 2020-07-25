@@ -76,31 +76,15 @@ const App = () => {
 		return () => {};
 	}, []);
 
-	useEffect(
-		() => {
-			if (loggedInUser) {
-				console.log('fetching meals data.');
-				getAllMeals()
-					.then((meals) => {
-						dispatch({
-							type: 'setMeals',
-							data: meals
-						});
-					})
-					.catch((error) => {
-						console.log('An error occurred fetching meals from the server:', error);
-					});
-			} else {
-				dispatch({
-					type: 'setMeals',
-					data: []
-				});
-			}
-			// return a function that specifies any actions on component unmount
-			return () => {};
-		},
-		[ loggedInUser ]
-	);
+  useEffect(
+    () => {
+      console.log('fetching meals data')
+      fetchMealData()
+      // return a function that specifies any actions on component unmount
+      return () => { };
+    },
+    [loggedInUser]
+  );
 
 	const [ meals, setMeals ] = useState([
 		{

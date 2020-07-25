@@ -86,33 +86,6 @@ const App = () => {
     [loggedInUser]
   );
 
-	const [ meals, setMeals ] = useState([
-		{
-			mealType: 'lunch',
-			_id: '5f196a73f3092d05dc0707c5',
-			title: 'Pizza',
-			description: 'Home made',
-			deliversOn: '2020-07-20T22:08:11.000Z',
-			orderStarts: '2020-07-18T00:08:11.000Z',
-			orderEnds: '2020-07-20T06:08:11.000Z',
-			maxOrders: 20,
-			cost: 20,
-			soldBy: {
-				_id: '5f196a61f3092d05dc0707c4',
-				username: 'hungry5',
-				email: 'hungry@email.com',
-				role: 'seller',
-				createdAt: '2020-07-23T10:45:53.882Z',
-				updatedAt: '2020-07-23T10:45:53.882Z',
-				__v: 0
-			},
-			orders: [],
-			createdAt: '2020-07-23T10:46:11.647Z',
-			updatedAt: '2020-07-23T10:46:11.647Z',
-			__v: 0
-		}
-	]);
-	// const [ loggedInUser, setLoggedInUser ] = useState(null);
 
 	const [ orders, setOrders ] = useState([]);
 

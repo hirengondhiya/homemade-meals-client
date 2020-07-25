@@ -1,7 +1,6 @@
 import Row from 'react-bootstrap/Row';
 import Table from 'react-bootstrap/Table';
 import Container from 'react-bootstrap/Container';
-import DatePicker from 'react-datepicker';
 
 import moment from 'moment';
 import React from 'react';
@@ -29,11 +28,7 @@ const Meals = () => {
 					<thead>
 						<tr>
 							<th>#</th>
-							{Object.values(headings).map(({ heading }) => (
-								<th className="text-capitalize" key={heading}>
-									{heading}
-								</th>
-							))}
+							{Object.values(headings).map(({ heading }) => <th key={heading}>{heading}</th>)}
 						</tr>
 					</thead>
 					<tbody>

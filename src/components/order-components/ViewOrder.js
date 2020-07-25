@@ -57,7 +57,7 @@ const ViewOrder = ({ history, match }) => {
 
   function handleEdit(event) {
     event.preventDefault();
-    history.push(`/order/edit/${order._id}`);
+    history.push(`/orders/edit/${order._id}`);
   }
 
   const buttonStyling = {

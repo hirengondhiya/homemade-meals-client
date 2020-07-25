@@ -25,6 +25,7 @@ export default ({ component: Component, location, redirectMsg, role, ...rest }) 
         msg: `As a ${loggedInUser.role }, you can not access that path.`
       }
     })
+    return <Redirect to="/" />
   }
 
   return (

@@ -7,6 +7,7 @@ import Spinner from 'react-bootstrap/Spinner';
 import React, { useReducer, useEffect, useState } from 'react';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 
+import Home from './components/Home'
 import AddNewMeal from './components/meals-components/AddNewMeal';
 import ViewMeal from './components/meals-components/ViewMeal';
 import EditMeal from './components/meals-components/EditMeal';
@@ -126,6 +127,7 @@ const App = () => {
                     <Switch>
                       <Route exact path="/register" component={Register} />
                       <Route exact path="/login" component={Login} />
+                      <Route exact path="/" component={Home} />
 
                       <AuthenticatedRoute exact path="/meals" role="seller" redirectMsg="Please login to view all meals" component={Meals} />
                       <AuthenticatedRoute exact path="/meals/new" role="seller" redirectMsg="Please login to create new meal" component={AddNewMeal} />

@@ -124,10 +124,10 @@ const App = () => {
                     <span className="sr-only">Loading...</span>
                   </Spinner> :
                     <Switch>
-                      <Route exact path="/" render={(props) => <Meals {...props} />} />
                       <Route exact path="/register" component={Register} />
                       <Route exact path="/login" component={Login} />
 
+                      <AuthenticatedRoute exact path="/meals" role="seller" redirectMsg="Please login to view all meals" component={Meals} />
                       <AuthenticatedRoute exact path="/meals/new" role="seller" redirectMsg="Please login to create new meal" component={AddNewMeal} />
                       <AuthenticatedRoute exact path="/meals/:id" role="seller" component={ViewMeal} />
                       <AuthenticatedRoute exact path="/meals/edit/:id" role="seller" redirectMsg="Please login to edit meal" component={EditMeal} />

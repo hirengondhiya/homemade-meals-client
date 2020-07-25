@@ -44,7 +44,7 @@ const Navigation = () => {
               loggedInUser.role === 'seller' &&
               <>
                 <Nav.Link as={NavLink} to="/meals/new">Create</Nav.Link>
-                <Nav.Link as={NavLink} to="/mealshistory">Meals history</Nav.Link>
+                <Nav.Link as={NavLink} to="/meals">Meals history</Nav.Link>
               </>
             }
           </Nav>

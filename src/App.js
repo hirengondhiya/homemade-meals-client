@@ -23,10 +23,11 @@ import ShowAlert from './components/ShowAlert';
 import AuthenticatedRoute from './components/auth-components/AuthenticatedRoute';
 
 import { StateContext } from './config/store';
-import { getAllMeals } from './services/mealServices';
-
 import stateReducer from './config/stateReducer';
+
+import { getAllMeals } from './services/mealServices';
 import { userAuthenticated } from './services/authServices';
+import { getAllOrders } from './services/orderServices';
 
 const App = () => {
   function fetchMealData() {
@@ -75,6 +76,21 @@ const App = () => {
     () => {
       console.log('fetching meals data')
       fetchMealData()
+      if (loggedInUser && loggedInUser.role === "buyer") {
+        getAllOrders()
+          .then((orders) => {
+            dispatch({
+              type: 'setOrders',
+              data: orders
+            });
+          })
+          .catch((err) => {
+            dispatch({
+              type: 'setOrders',
+              data: []
+            });
+          })
+      }
       // return a function that specifies any actions on component unmount
       return () => { };
     },

@@ -43,7 +43,7 @@ const Meals = () => {
 								{Object.keys(headings).map((heading) => (
 									<td>
 										{headings[heading].type === 'date' ? (
-											moment(meal[heading]).format('MMMM d, yyyy h:mm a')
+											moment(meal[heading]).format('MMMM Do YYYY, h:mm a')
 										) : (
 											meal[heading]
 										)}

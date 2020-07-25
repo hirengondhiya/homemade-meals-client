@@ -32,15 +32,20 @@ const ViewOrder = ({ history, match }) => {
     event.preventDefault();
     // cancelOrder(order._id);
     deleteOrder(order._id)
-      .then((order) => {
-        const replaced = orders.map((meal) => {
-          const [o] = meal.orders
-          return o._id === order._id ? order : o
-        })
+      .then((updatedOrder) => {
+        const { orders: [order] } = updatedOrder
+        const others = orders.filter((m) => m.orders[0]._id !== order._id)
         dispatch({
           type: "setOrders",
-          data: replaced
+          data: [updatedOrder, ...others]
         })
+        dispatch({
+          type: "setInfo",
+          data: {
+            title: "Cancelled",
+            msg: "We have cancelled your order."
+          }
+        })        
         history.push(`/`);
       })
       .catch((err) => {

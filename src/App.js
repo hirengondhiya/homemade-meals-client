@@ -143,9 +143,9 @@ const App = () => {
                       <Route exact path="/register" component={Register} />
                       <Route exact path="/login" component={Login} />
                       <AuthenticatedRoute exact path="/meals/edit/:id" redirectMsg="Please login to edit meal" component={EditMeal} />
-                      <Route exact path="/meals/:id/order" component={OrderMeal} />
-                      <Route exact path="/orders/:id" component={ViewOrder} />
-                      <Route exact path="/orders/edit/:id" component={EditOrder} />
+                      <AuthenticatedRoute exact path="/meals/:id/order" redirectMsg="Please login to make an order" component={OrderMeal} />
+                      <AuthenticatedRoute exact path="/orders/:id" redirectMsg="Please login to view your order" component={ViewOrder} />
+                      <AuthenticatedRoute exact path="/orders/edit/:id" redirectMsg="Please login to edit your order" component={EditOrder} />
                     </Switch>
                 }
               </Col>

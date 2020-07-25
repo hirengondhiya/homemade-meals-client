@@ -10,6 +10,12 @@ export default function (state, action) {
         meals: action.data
       };
     }
+    case 'setOrders': {
+      return {
+        ...state,
+        orders: action.data
+      };
+    }
     case "setLoggedInUser": {
       setLoggedInUser(action.data)
       return {

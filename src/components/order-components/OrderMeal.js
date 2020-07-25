@@ -37,8 +37,8 @@ const OrderMeal = ({ history, match }) => {
           type: 'setOrders',
           data: [mealOrder, ...store.orders]
         })
-        const {orders:[order]} = mealOrder
-        history.push(`/order/${order._id}`);
+        const { orders: [order] } = mealOrder
+        history.push(`/orders/${order._id}`);
       })
       .catch((err) => {
         const { status, data } = err.response || {};

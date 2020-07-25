@@ -24,6 +24,18 @@ export default function (state, action) {
         info: action.data
       }
     }
+    case "setOrdersLoadFinished": {
+      return {
+        ...state,
+        ordersLoadFinished: action.data
+      }
+    }
+    case "setMealsLoadFinished": {
+      return {
+        ...state,
+        mealsLoadFinished: action.data
+      }
+    }
     default:
       return state
   }

@@ -41,13 +41,16 @@ const App = () => {
       })
       .catch((error) => {
         console.log('An error occurred fetching meals from the server:', error);
+      }).finally(() => {
+
       });
   }
   const initialState = {
     meals: [],
     orders: [],
     error: null,
-    info: null
+    info: null,
+    ordersLoadFinished: false
   };
   const [loggedInUser, setLoggedInUser] = useState(null);
   const [loadingStatus, setLoadingStatus] = useState('loading')
@@ -74,7 +77,11 @@ const App = () => {
 
   useEffect(
     () => {
-      console.log('fetching meals data')
+      dispatch({
+        type: "setOrdersLoadFinished",
+        data: true
+      })
+      console.log('fetching meals and orders data')
       fetchMealData()
       if (loggedInUser && loggedInUser.role === "buyer") {
         getAllOrders()
@@ -84,11 +91,17 @@ const App = () => {
               data: orders
             });
           })
-          .catch((err) => {
+          .catch(() => {
             dispatch({
               type: 'setOrders',
               data: []
             });
+          })
+          .finally(() => {
+            dispatch({
+              type: "setOrdersLoadFinished",
+              data: true
+            })
           })
       }
       // return a function that specifies any actions on component unmount
@@ -114,15 +127,15 @@ const App = () => {
                       <Route exact path="/" render={(props) => <Meals {...props} />} />
                       <Route exact path="/register" component={Register} />
                       <Route exact path="/login" component={Login} />
-                      
+
                       <AuthenticatedRoute exact path="/meals/new" role="seller" redirectMsg="Please login to create new meal" component={AddNewMeal} />
                       <AuthenticatedRoute exact path="/meals/:id" role="seller" component={ViewMeal} />
                       <AuthenticatedRoute exact path="/meals/edit/:id" role="seller" redirectMsg="Please login to edit meal" component={EditMeal} />
-                      
+
                       <AuthenticatedRoute exact path="/meals/:id/order" role="buyer" redirectMsg="Please login to make an order" component={OrderMeal} />
                       <AuthenticatedRoute exact path="/orders/:id" role="buyer" redirectMsg="Please login to view your order" component={ViewOrder} />
                       <AuthenticatedRoute exact path="/orders/edit/:id" role="buyer" redirectMsg="Please login to edit your order" component={EditOrder} />
-                      
+
                       <Route render={() => {
                         dispatch({ type: "setError", data: { title: "Sorry that page does not exist!", msg: "Please use navigation to navigate around pages." } })
                         return <Redirect to="/" />

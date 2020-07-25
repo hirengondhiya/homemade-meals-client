@@ -2,6 +2,7 @@ import './scss/custom-theme.scss';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import Spinner from 'react-bootstrap/Spinner';
 
 import React, { useReducer, useEffect, useState } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
@@ -118,15 +119,19 @@ const App = () => {
 		setOrders([ ...otherOrder, orderUpdate ]);
 	}
 
-	return (
-		<div>
-			<StateContext.Provider value={{ store, dispatch, loggedInUser, setLoggedInUser }}>
-				<BrowserRouter>
-					<Nav />
-					<ShowAlert />
-					<Container>
-						<Row>
-							<Col className="mb-3">
+  return (
+    <div>
+      <StateContext.Provider value={{ store, dispatch, loggedInUser, setLoggedInUser }}>
+        <BrowserRouter>
+          <Nav />
+          <ShowAlert />
+          <Container>
+            <Row>
+              <Col className="mb-3">
+                {
+                  loadingStatus === 'loading' ? <Spinner animation="border" role="status">
+                    <span className="sr-only">Loading...</span>
+                  </Spinner> :
                     <Switch>
                       <Route exact path="/" render={(props) => <Meals {...props} />} />
                       <AuthenticatedRoute exact path="/meals/new" redirectMsg="Please login to create new meal" component={AddNewMeal} />
@@ -138,13 +143,14 @@ const App = () => {
                       <Route exact path="/orders/:id" component={ViewOrder} />
                       <Route exact path="/orders/edit/:id" component={EditOrder} />
                     </Switch>
-							</Col>
-						</Row>
-					</Container>
-				</BrowserRouter>
-			</StateContext.Provider>
-		</div>
-	);
+                }
+              </Col>
+            </Row>
+          </Container>
+        </BrowserRouter>
+      </StateContext.Provider>
+    </div>
+  );
 };
 
 export default App;

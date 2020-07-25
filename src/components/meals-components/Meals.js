@@ -5,7 +5,6 @@ import DatePicker from 'react-datepicker';
 
 import moment from 'moment';
 import React from 'react';
-// import ViewMeal from './ViewMeal';
 import { useGlobalState } from '../../config/store';
 
 const Meals = () => {

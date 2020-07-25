@@ -41,19 +41,11 @@ const App = () => {
 	useEffect(() => {
 		userAuthenticated()
 			.then((user) => {
-				dispatch({
-					type: 'setLoggedInUser',
-					data: user
-				});
 				setLoggedInUser(user);
 			})
 			.catch((error) => {
 				console.log('got an error trying to check authenticated user:', error);
 				setLoggedInUser(null);
-				dispatch({
-					type: 'setLoggedInUser',
-					data: null
-				});
 			});
 		// return a function that specifies any actions on component unmount
 		return () => {};
@@ -111,7 +103,6 @@ const App = () => {
 			__v: 0
 		}
 	]);
-	// const [ loggedInUser, setLoggedInUser ] = useState(null);
 
 	const [ orders, setOrders ] = useState([]);
 

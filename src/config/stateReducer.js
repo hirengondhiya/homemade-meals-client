@@ -1,7 +1,3 @@
-import {
-  setLoggedInUser,
-} from "../services/authServices"
-
 export default function (state, action) {
   switch (action.type) {
     case 'setMeals': {
@@ -9,13 +5,6 @@ export default function (state, action) {
         ...state,
         meals: action.data
       };
-    }
-    case "setLoggedInUser": {
-      setLoggedInUser(action.data)
-      return {
-        ...state,
-        loggedInUser: action.data
-      }
     }
     case "setError": {
       return {

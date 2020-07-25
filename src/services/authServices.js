@@ -31,13 +31,3 @@ export async function userAuthenticated() {
     throw (error)
   }
 }
-
-// Get loggedInUser from localStorage
-export function getLoggedInUser() {
-  return localStorage.getItem("loggedInUser")
-}
-
-// Store loggedInUser username in local storage
-export function setLoggedInUser(user) {
-  user ? localStorage.setItem("loggedInUser", user) : localStorage.removeItem("loggedInUser")
-}

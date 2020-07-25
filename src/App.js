@@ -97,32 +97,6 @@ const App = () => {
     [loggedInUser]
   );
 
-
-  const [orders, setOrders] = useState([]);
-
-  // returns the order from the id
-  function getOrderFromId(id) {
-    let order = orders.find((order) => order._id === id);
-    return order;
-  }
-
-  // function add an order
-  function addOrder(newOrder) {
-    setOrders([...orders, newOrder]);
-  }
-
-  // cancel order with the specified id
-  function cancelOrder(id) {
-    const updatedOrder = orders.find((order) => order._id !== id);
-    return updatedOrder;
-  }
-
-  // update Order
-  function updateOrder(orderUpdate) {
-    const otherOrder = orders.filter((order) => order._id !== orderUpdate._id);
-    setOrders([...otherOrder, orderUpdate]);
-  }
-
   return (
     <div>
       <StateContext.Provider value={{ store, dispatch, loggedInUser, setLoggedInUser }}>
@@ -148,7 +122,7 @@ const App = () => {
                       <AuthenticatedRoute exact path="/meals/:id/order" role="buyer" redirectMsg="Please login to make an order" component={OrderMeal} />
                       <AuthenticatedRoute exact path="/orders/:id" role="buyer" redirectMsg="Please login to view your order" component={ViewOrder} />
                       <AuthenticatedRoute exact path="/orders/edit/:id" role="buyer" redirectMsg="Please login to edit your order" component={EditOrder} />
-
+                      
                       <Route render={() => {
                         dispatch({ type: "setError", data: { title: "Sorry that page does not exist!", msg: "Please use navigation to navigate around pages." } })
                         return <Redirect to="/" />

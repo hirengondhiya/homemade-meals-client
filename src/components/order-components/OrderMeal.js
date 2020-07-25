@@ -6,7 +6,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
-import useGlobalState from '../../config/store'
+import { useGlobalState } from '../../config/store'
 
 const OrderMeal = ({ history, match, addOrder }) => {
   function handleChange(event) {
@@ -34,7 +34,7 @@ const OrderMeal = ({ history, match, addOrder }) => {
     history.push(`/order/${newOrder._id}`);
   }
   const { store, dispatch } = useGlobalState()
-  const { id } = (match && match.params) || {}  
+  const { id } = (match && match.params) || {}
 
   const meal = store.meals.find((meal) => meal._id === id)
 

@@ -77,8 +77,8 @@ const EditMeal = ({ history, location, match }) => {
 	const [ formState, setFormState ] = useState(initialFormState);
 	const [ errorMessage, setErrorMessage ] = useState(null);
 
-	const { store, dispatch } = useGlobalState();
-	const { loggedInUser, meals } = store;
+  const { store, dispatch, loggedInUser } = useGlobalState();
+	const { meals } = store;
 
 	const { id } = (match && match.params) || {};
 

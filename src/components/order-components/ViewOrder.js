@@ -11,14 +11,25 @@ import moment from 'moment'
 import { useGlobalState } from '../../config/store'
 
 import { deleteOrder } from '../../services/orderServices'
+import { Redirect } from 'react-router-dom';
 
 const ViewOrder = ({ history, match }) => {
   const { store, dispatch, loggedInUser } = useGlobalState()
-  const { orders } = store;
+  const { orders, ordersLoadFinished } = store;
   const { id } = match.params || {}
   const meal = id && orders && orders.find(({ orders: [order] }) => order._id === id)
   const [errorMessage, setErrorMessage] = useState(null);
-  if (!id || !meal) {
+  if (ordersLoadFinished && !meal) {
+    dispatch({
+      type: "setError",
+      data: {        
+        title: "Sorry, cannot find the order",
+        msg: "Please check with the admin."
+      }
+    })
+    return <Redirect to="/" />
+  }
+  if (!meal) {
     return (
       <Spinner animation="border" role="status">
         <span className="sr-only">Loading...</span>

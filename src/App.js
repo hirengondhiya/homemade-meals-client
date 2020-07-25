@@ -28,6 +28,19 @@ import stateReducer from './config/stateReducer';
 import { userAuthenticated } from './services/authServices';
 
 const App = () => {
+  function fetchMealData() {
+    const { role } = loggedInUser || {}
+    getAllMeals(role)
+      .then((meals) => {
+        dispatch({
+          type: 'setMeals',
+          data: meals
+        });
+      })
+      .catch((error) => {
+        console.log('An error occurred fetching meals from the server:', error);
+      });
+  }
 	const initialState = {
     meals: [],
     orders: [],

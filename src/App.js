@@ -1,7 +1,9 @@
 import './scss/custom-theme.scss';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
-import React, { useState, useReducer, useEffect } from 'react';
+import Col from 'react-bootstrap/Col';
+
+import React, { useReducer, useEffect, useState } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import AddNewMeal from './components/meals-components/AddNewMeal';
@@ -11,33 +13,43 @@ import Register from './components/auth-components/Register';
 import Meals from './components/meals-components/Meals';
 import Login from './components/auth-components/Login';
 import Nav from './components/Nav';
+
 import OrderMeal from './components/order-components/OrderMeal';
 import ViewOrder from './components/order-components/ViewOrder';
 import EditOrder from './components/order-components/EditOrder';
 
+import ShowAlert from './components/ShowAlert';
+import AuthenticatedRoute from './components/auth-components/AuthenticatedRoute';
+
 import { StateContext } from './config/store';
+import { getAllMeals } from './services/mealServices';
+
 import stateReducer from './config/stateReducer';
 import { userAuthenticated } from './services/authServices';
+
 const App = () => {
 	const initialState = {
-		loggedInUser: null
+		meals: [],
+		error: null,
+		info: null
 	};
+	const [ loggedInUser, setLoggedInUser ] = useState(null);
 
 	// Create state reducer store and dispatcher
 	const [ store, dispatch ] = useReducer(stateReducer, initialState);
 
 	useEffect(() => {
-		// fetchBlogPosts()
 		userAuthenticated()
 			.then((user) => {
 				dispatch({
 					type: 'setLoggedInUser',
 					data: user
 				});
+				setLoggedInUser(user);
 			})
 			.catch((error) => {
 				console.log('got an error trying to check authenticated user:', error);
-				// setLoggedInUser(null)
+				setLoggedInUser(null);
 				dispatch({
 					type: 'setLoggedInUser',
 					data: null
@@ -46,6 +58,32 @@ const App = () => {
 		// return a function that specifies any actions on component unmount
 		return () => {};
 	}, []);
+
+	useEffect(
+		() => {
+			if (loggedInUser) {
+				console.log('fetching meals data.');
+				getAllMeals()
+					.then((meals) => {
+						dispatch({
+							type: 'setMeals',
+							data: meals
+						});
+					})
+					.catch((error) => {
+						console.log('An error occurred fetching meals from the server:', error);
+					});
+			} else {
+				dispatch({
+					type: 'setMeals',
+					data: []
+				});
+			}
+			// return a function that specifies any actions on component unmount
+			return () => {};
+		},
+		[ loggedInUser ]
+	);
 
 	const [ meals, setMeals ] = useState([
 		{
@@ -89,32 +127,15 @@ const App = () => {
 		return order;
 	}
 
-	// Add a new meal
-	function addMeal(newMeal) {
-		setMeals([ ...meals, newMeal ]);
-	}
-
 	// function add an order
 	function addOrder(newOrder) {
 		setOrders([ ...orders, newOrder ]);
-	}
-
-	// delete blog post that matched id
-	function deleteMeal(id) {
-		const updatedMeal = meals.find((meal) => meal._id !== id);
-		return updatedMeal;
 	}
 
 	// cancel order with the specified id
 	function cancelOrder(id) {
 		const updatedOrder = orders.find((order) => order._id !== id);
 		return updatedOrder;
-	}
-
-	// update meal that match id
-	function updateMeal(updatedMeal) {
-		const otherMeal = meals.filter((meal) => meal._id !== updatedMeal._id);
-		setMeals([ ...otherMeal, updatedMeal ]);
 	}
 
 	// update Order
@@ -125,79 +146,66 @@ const App = () => {
 
 	return (
 		<div>
-			<StateContext.Provider value={{ store, dispatch }}>
+			<StateContext.Provider value={{ store, dispatch, loggedInUser, setLoggedInUser }}>
 				<BrowserRouter>
 					<Nav />
+					<ShowAlert />
 					<Container>
-						<Row className="justify-content-center">
-							<h1>Homemade Meals</h1>
-							<Switch>
-								<Route exact path="/" render={(props) => <Meals {...props} />} />
-								<Route
-									exact
-									path="/meals/new"
-									render={(props) => <AddNewMeal {...props} addMeal={addMeal} />}
-								/>
-								<Route
-									exact
-									path="/meals/:id"
-									render={(props) => (
-										<ViewMeal
-											{...props}
-											meal={getMealFromID(props.match.params.id)}
-											showControls
-											deleteMeal={deleteMeal}
-										/>
-									)}
-								/>
-								<Route
-									exact
-									path="/meals/edit/:id"
-									render={(props) => (
-										<EditMeal
-											{...props}
-											updateMeal={updateMeal}
-											meal={getMealFromID(props.match.params.id)}
-										/>
-									)}
-								/>
-								<Route exact path="/register" component={Register} />
-								<Route exact path="/login" component={Login} />
-								<Route
-									exact
-									path="/meals/:id/order"
-									render={(props) => (
-										<OrderMeal
-											{...props}
-											meal={getMealFromID(props.match.params.id)}
-											addOrder={addOrder}
-										/>
-									)}
-								/>
-								<Route
-									exact
-									path="/order/:id"
-									render={(props) => (
-										<ViewOrder
-											{...props}
-											order={getOrderFromId(props.match.params.id)}
-											showControls
-											cancelOrder={cancelOrder}
-										/>
-									)}
-								/>
-								<Route
-									exact
-									path="/order/edit/:id"
-									render={(props) => (
-										<EditOrder
-											{...props}
-											order={getOrderFromId(props.match.params.id)}
-											updateOrder={updateOrder}
-										/>
-									)}
-								/>
-							</Switch>
+						<Row>
+							<Col className="mb-3">
+								<Switch>
+									<Route exact path="/" render={(props) => <Meals {...props} />} />
+									<AuthenticatedRoute
+										exact
+										path="/meals/new"
+										redirectMsg="Please login to create new meal"
+										component={AddNewMeal}
+									/>
+									<Route exact path="/meals/:id" component={ViewMeal} />
+									<Route exact path="/register" component={Register} />
+									<Route exact path="/login" component={Login} />
+									<AuthenticatedRoute
+										exact
+										path="/meals/edit/:id"
+										redirectMsg="Please login to edit meal"
+										component={EditMeal}
+									/>
+									<Route
+										exact
+										path="/meals/:id/order"
+										render={(props) => (
+											<OrderMeal
+												{...props}
+												meal={getMealFromID(props.match.params.id)}
+												addOrder={addOrder}
+											/>
+										)}
+									/>
+									<Route
+										exact
+										path="/order/:id"
+										render={(props) => (
+											<ViewOrder
+												{...props}
+												order={getOrderFromId(props.match.params.id)}
+												showControls
+												cancelOrder={cancelOrder}
+											/>
+										)}
+									/>
+									<Route
+										exact
+										path="/order/edit/:id"
+										render={(props) => (
+											<EditOrder
+												{...props}
+												order={getOrderFromId(props.match.params.id)}
+												updateOrder={updateOrder}
+											/>
+										)}
+									/>
+								</Switch>
+							</Col>
 						</Row>
 					</Container>
 				</BrowserRouter>

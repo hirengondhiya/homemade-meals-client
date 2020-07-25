@@ -23,6 +23,12 @@ export default function (state, action) {
         error: action.data
       }
     }
+    case "setInfo": {
+      return {
+        ...state,
+        info: action.data
+      }
+    }
     default:
       return state
   }

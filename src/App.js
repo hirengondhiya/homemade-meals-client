@@ -154,58 +154,17 @@ const App = () => {
 					<Container>
 						<Row>
 							<Col className="mb-3">
-								<Switch>
-									<Route exact path="/" render={(props) => <Meals {...props} />} />
-									<AuthenticatedRoute
-										exact
-										path="/meals/new"
-										redirectMsg="Please login to create new meal"
-										component={AddNewMeal}
-									/>
-									<Route exact path="/meals/:id" component={ViewMeal} />
-									<Route exact path="/register" component={Register} />
-									<Route exact path="/login" component={Login} />
-									<AuthenticatedRoute
-										exact
-										path="/meals/edit/:id"
-										redirectMsg="Please login to edit meal"
-										component={EditMeal}
-									/>
-									<Route
-										exact
-										path="/meals/:id/order"
-										render={(props) => (
-											<OrderMeal
-												{...props}
-												meal={getMealFromID(props.match.params.id)}
-												addOrder={addOrder}
-											/>
-										)}
-									/>
-									<Route
-										exact
-										path="/order/:id"
-										render={(props) => (
-											<ViewOrder
-												{...props}
-												order={getOrderFromId(props.match.params.id)}
-												showControls
-												cancelOrder={cancelOrder}
-											/>
-										)}
-									/>
-									<Route
-										exact
-										path="/order/edit/:id"
-										render={(props) => (
-											<EditOrder
-												{...props}
-												order={getOrderFromId(props.match.params.id)}
-												updateOrder={updateOrder}
-											/>
-										)}
-									/>
-								</Switch>
+                    <Switch>
+                      <Route exact path="/" render={(props) => <Meals {...props} />} />
+                      <AuthenticatedRoute exact path="/meals/new" redirectMsg="Please login to create new meal" component={AddNewMeal} />
+                      <Route exact path="/meals/:id" component={ViewMeal} />
+                      <Route exact path="/register" component={Register} />
+                      <Route exact path="/login" component={Login} />
+                      <AuthenticatedRoute exact path="/meals/edit/:id" redirectMsg="Please login to edit meal" component={EditMeal} />
+                      <Route exact path="/meals/:id/order" component={OrderMeal} />
+                      <Route exact path="/orders/:id" component={ViewOrder} />
+                      <Route exact path="/orders/edit/:id" component={EditOrder} />
+                    </Switch>
 							</Col>
 						</Row>
 					</Container>

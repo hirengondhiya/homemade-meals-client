@@ -1,14 +1,19 @@
-import React, { useState } from 'react';
+import 'react-datepicker/dist/react-datepicker.css';
+import React, { useState, useEffect } from 'react';
 
 import Form from 'react-bootstrap/Form';
+import Spinner from 'react-bootstrap/Spinner';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
-import { useGlobalState } from '../../config/store'
+import DatePicker from 'react-datepicker';
 
-const OrderMeal = ({ history, match, addOrder }) => {
+import { useGlobalState } from '../../config/store'
+import { addOrder } from '../../services/orderServices'
+
+const OrderMeal = ({ history, match }) => {
   function handleChange(event) {
     const name = event.target.name;
     const value = event.target.value;
@@ -26,35 +31,63 @@ const OrderMeal = ({ history, match, addOrder }) => {
       quantity: parseInt(formState.quantity),
       totalAmt: parseInt(meal.cost) * parseInt(formState.quantity)
     };
-    // addOrder(newOrder);
-    dispatch({
-      type: 'setOrders',
-      data: [newOrder, ...store.orders]
-    })
-    history.push(`/order/${newOrder._id}`);
+    addOrder(newOrder)
+      .then((mealOrder) => {
+        dispatch({
+          type: 'setOrders',
+          data: [mealOrder, ...store.orders]
+        })
+        const {orders:[order]} = mealOrder
+        history.push(`/order/${order._id}`);
+      })
+      .catch((err) => {
+        const { status, data } = err.response || {};
+        const { errorMsg } = data || {};
+        if (status === 400) setErrorMessage(errorMsg);
+        else if (status === 403)
+          setErrorMessage(
+            'Oops! It appears we lost your login session. Make sure 3rd party cookies are not blocked by your browser settings.'
+          );
+        else setErrorMessage('Well, this is embarrassing... There was a problem on the server.');
+      });
   }
-  const { store, dispatch } = useGlobalState()
-  const { id } = (match && match.params) || {}
-
-  const meal = store.meals.find((meal) => meal._id === id)
-
   const initialFormState = {
-    pickupAt: new Date(meal.deliversOn),
-    quantity: parseInt(1)
+    pickupAt: '',
+    quantity: '',
+    pickupAtMin: new Date(),
+    pickupAtMax: new Date()
   };
   const [formState, setFormState] = useState(initialFormState);
+  const [errorMessage, setErrorMessage] = useState(null);
+  const { store, dispatch } = useGlobalState()
+  const { id } = (match && match.params) || {}
+  const meal = id && store.meals && store.meals.find((meal) => meal._id === id)
+
+  useEffect(() => {
+    if (meal) {
+      setFormState({
+        pickupAt: new Date(meal.deliversOn),
+        quantity: parseInt(1),
+        pickupAtMin: new Date(meal.deliversOn),
+        pickupAtMax: new Date(meal.deliversOn),
+      })
+    }
+  }, [meal])
 
   if (!id || !meal) {
     return (
-      <p className="text-danger mt-3">Can not find meal!</p>
+      <Spinner animation="border" role="status">
+        <span className="sr-only">Loading...</span>
+      </Spinner>
     )
   }
   return (
     <Container>
       <Row className="justify-content-center">
-        <Col lg={4}>
+        <Col>
           <Form onSubmit={handleSubmit}>
             <h2>Order Meal</h2>
+            {errorMessage && <p className="text-danger mt-3">{errorMessage}</p>}
             <Form.Group>
               <Form.Label>Dish:</Form.Label>
               <Form.Control type="text" id="title" name="title" value={meal.title} readOnly />
@@ -64,14 +97,16 @@ const OrderMeal = ({ history, match, addOrder }) => {
               <Form.Control type="text" id="cost" name="cost" value={meal.cost} readOnly />
             </Form.Group>
             <Form.Group>
-              <Form.Label htmlFor="pickupAt">Pickup Time (date and time):</Form.Label>
-              <Form.Control
-                required
-                type="datetime-local"
-                id="pickupAt"
+              <Form.Label htmlFor="pickupAt" className="mr-4">Pickup Time (date and time):</Form.Label>
+              <DatePicker
                 name="pickupAt"
-                value={formState.pickupAt}
-                onChange={handleChange}
+                selected={formState.pickupAt}
+                onChange={(selectedDate) => handleChange({ target: { name: 'pickupAt', value: selectedDate } })}
+                minDate={formState.pickupAtMin}
+                maxDate={formState.pickupAtMax}
+                timeIntervals={15}
+                showTimeSelect
+                dateFormat="MMMM d, yyyy h:mm aa"
               />
             </Form.Group>
             <Form.Group>

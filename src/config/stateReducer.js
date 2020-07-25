@@ -6,6 +6,12 @@ export default function (state, action) {
         meals: action.data
       };
     }
+    case 'setOrders': {
+      return {
+        ...state,
+        orders: action.data
+      };
+    }      
     case "setError": {
       return {
         ...state,
@@ -16,6 +22,18 @@ export default function (state, action) {
       return {
         ...state,
         info: action.data
+      }
+    }
+    case "setOrdersLoadFinished": {
+      return {
+        ...state,
+        ordersLoadFinished: action.data
+      }
+    }
+    case "setMealsLoadFinished": {
+      return {
+        ...state,
+        mealsLoadFinished: action.data
       }
     }
     default:

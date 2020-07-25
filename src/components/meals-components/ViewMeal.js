@@ -4,13 +4,15 @@ import Button from 'react-bootstrap/Button'
 // import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
-import DatePicker from 'react-datepicker'
+
+import moment from 'moment'
 
 import React, { useState } from 'react';
 // import { withRouter } from 'react-router-dom';
 
 import { useGlobalState } from '../../config/store'
 import { deleteMeal } from '../../services/mealServices'
+import { Container } from "react-bootstrap";
 
 const ViewMeal = ({ history, match, mealData }) => {
   // handle delete button
@@ -104,34 +106,25 @@ const ViewMeal = ({ history, match, mealData }) => {
         <Form.Group as={Row}>
           <Form.Label column lg="2"><strong>Pickup Time</strong></Form.Label>
           <Col lg="10">
-            <DatePicker
-              name="deliversOn"
-              selected={new Date(deliversOn)}
-              dateFormat="MMMM d, yyyy h:mm aa"
-              readOnly
-            />
+            {
+              moment(deliversOn).format('MMMM Do YYYY, h:mm a')
+            }
           </Col>
         </Form.Group>
         <Form.Group as={Row}>
           <Form.Label column lg="2"><strong>Accepting order from</strong></Form.Label>
           <Col lg="10">
-            <DatePicker
-              name="deliversOn"
-              selected={new Date(orderStarts)}
-              dateFormat="MMMM d, yyyy h:mm aa"
-              readOnly
-            />
+            {
+              moment(orderStarts).format('MMMM Do YYYY, h:mm a')
+            }
           </Col>
         </Form.Group>
         <Form.Group as={Row}>
           <Form.Label column lg="2"><strong>Order ends from</strong></Form.Label>
           <Col lg="10">
-            <DatePicker
-              name="deliversOn"
-              selected={new Date(orderEnds)}
-              dateFormat="MMMM d, yyyy h:mm aa"
-              readOnly
-            />
+            {
+              moment(orderEnds).format('MMMM Do YYYY, h:mm a')
+            }
           </Col>
         </Form.Group>
         <Form.Group as={Row}>
@@ -161,7 +154,7 @@ const ViewMeal = ({ history, match, mealData }) => {
           </>
         )
       }
-    </>
+      </>
   )
   const mealNotFound = (
     <p className="text-danger mt-3">Oops! It appears we do not have meal with that id.</p>

@@ -83,8 +83,8 @@ const AddNewMeal = ({ history, location }) => {
   };
 
   const { store, dispatch, loggedInUser } = useGlobalState();
-  const { meals } = store;
-  const [errorMessage, setErrorMessage] = useState(null);
+	const { meals } = store;
+	const [ errorMessage, setErrorMessage ] = useState(null);
 
   const [formState, setFormState] = useState(initialFormState);
 

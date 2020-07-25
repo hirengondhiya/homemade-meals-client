@@ -58,19 +58,11 @@ const App = () => {
     fetchMealData()
     userAuthenticated()
       .then((user) => {
-        dispatch({
-          type: 'setLoggedInUser',
-          data: user
-        });
         setLoggedInUser(user);
       })
       .catch((error) => {
         console.log('got an error trying to check authenticated user:', error);
         setLoggedInUser(null);
-        dispatch({
-          type: 'setLoggedInUser',
-          data: null
-        });
       })
       .finally(() => {
         setLoadingStatus('session-checked')

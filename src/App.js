@@ -29,7 +29,8 @@ import { userAuthenticated } from './services/authServices';
 
 const App = () => {
 	const initialState = {
-		meals: [],
+    meals: [],
+    orders: [],
 		error: null,
 		info: null
 	};

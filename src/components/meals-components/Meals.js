@@ -1,4 +1,6 @@
 import React from 'react';
+import ViewMeal from './ViewMeal';
+import { useGlobalState } from '../../config/store';
 
 const Meals = () => {
 	return (

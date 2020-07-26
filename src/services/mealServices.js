@@ -7,8 +7,9 @@ export function getMealFromId(meals, id) {
 }
 
 // Returns all meals from the server
-export async function getAllMeals() {
-  const response = await api.get("/meals")
+export async function getAllMeals(userRole = "") {
+  const uri = userRole === "seller" ? "/meals" : "/meals/openfororders"
+  const response = await api.get(uri)
   return response.data
 }
 

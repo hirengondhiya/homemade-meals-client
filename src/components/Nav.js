@@ -12,18 +12,28 @@ const Navigation = () => {
   // Logout user
   function handleLogout() {
     logoutUser().then((response) => {
+      // clear user data
+      dispatch({
+        type: "setOrders",
+        data: null
+      })
+      dispatch({
+        type: "setMeals",
+        data: null
+      })
+      dispatch({
+        type: "setInfo",
+        data: {
+          title: "Logged out",
+          msg: `See you later!`
+        }
+      })
+      setLoggedInUser(null)
       console.log("Got back response on logout", response.status)
     }).catch((error) => {
       console.log("The server may be down - caught an exception on logout:", error)
     })
-    dispatch({
-      type: "setInfo",
-      data: {
-        title: "Logged out",
-        msg: `See you later!`
-      }
-    })
-    setLoggedInUser(null)
+
   }
   const { loggedInUser, setLoggedInUser, dispatch } = useGlobalState()
   // /*

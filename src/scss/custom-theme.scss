@@ -5,3 +5,7 @@ $theme-colors: (
 
 // Import Bootstrap and its default variables
 @import '~bootstrap/scss/bootstrap.scss';
+
+.bg-light-purple {
+  background-color: lighten(#6E3D90, 50%);
+}

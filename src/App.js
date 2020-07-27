@@ -57,8 +57,7 @@ const App = () => {
     info: null,
     ordersLoadFinished: false
   };
-  const [loggedInUser, setLoggedInUser] = useState(null);
-  const [loadingStatus, setLoadingStatus] = useState('loading')
+  const [loggedInUser, setLoggedInUser] = useState('not-checked');
 
   // Create state reducer store and dispatcher
   const [store, dispatch] = useReducer(stateReducer, initialState);

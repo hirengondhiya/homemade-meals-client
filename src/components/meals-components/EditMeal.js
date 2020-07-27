@@ -5,6 +5,8 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import DatePicker from 'react-datepicker';
+import Spinner from 'react-bootstrap/Spinner';
+
 import moment from 'moment';
 
 import React, { useState, useEffect } from 'react';
@@ -80,9 +82,9 @@ const EditMeal = ({ history, location, match }) => {
   const { store, dispatch, loggedInUser } = useGlobalState();
 	const { meals } = store;
 
-	const { id } = (match && match.params) || {};
+  const { id } = (match && match.params) || {};
 
-	const meal = id && meals.find((storedMeal) => storedMeal._id === id);
+  const meal = id && meals && meals.find((storedMeal) => storedMeal._id === id);
 
 	const deliversOnMin = moment().add(12, 'hours');
 	const maxDate = moment().add(7, 'days').toDate();
@@ -104,8 +106,15 @@ const EditMeal = ({ history, location, match }) => {
 			}
 		},
 		[ meal ]
-	);
-
+  );
+  
+  if (meals === null) {
+    return (
+      <Spinner animation="border" role="status">
+        <span className="sr-only">Loading...</span>
+      </Spinner>
+    )
+  }
 	const form = (
 		<Form onSubmit={handleSubmit}>
 			<h2>What are we Cooking?</h2>

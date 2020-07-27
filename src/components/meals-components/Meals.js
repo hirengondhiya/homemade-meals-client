@@ -1,6 +1,7 @@
 import Row from 'react-bootstrap/Row';
 import Table from 'react-bootstrap/Table';
 import Container from 'react-bootstrap/Container';
+import Spinner from 'react-bootstrap/Spinner';
 
 import moment from 'moment';
 import React from 'react';
@@ -8,8 +9,15 @@ import { useGlobalState } from '../../config/store';
 
 const Meals = () => {
 	const { store } = useGlobalState();
-	const { meals } = store;
-
+  const { meals } = store;
+  
+  if (!meals) {
+    return (
+      <Spinner animation="border" role="status">
+        <span className="sr-only">Loading...</span>
+      </Spinner>
+    )
+  }
 	const headings = {
 		title: { heading: 'Title' },
 		description: { heading: 'Description' },

@@ -29,7 +29,7 @@ const ViewOrder = ({ history, match }) => {
     })
     return <Redirect to="/" />
   }
-  if (!meal) {
+  if (!orders) {
     return (
       <Spinner animation="border" role="status">
         <span className="sr-only">Loading...</span>

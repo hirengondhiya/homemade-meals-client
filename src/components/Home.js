@@ -11,7 +11,7 @@ export default function Home() {
 
   let mealsData = [];
 
-  // when meals data is not checked
+  // when meals data is not loaded
   if (!meals) {
     return (
       <Spinner animation="border" role="status">
@@ -30,6 +30,6 @@ export default function Home() {
   }
 
   return (
-    mealsData.map((mealData) => <ViewMeal mealData={mealData} />)
+    mealsData.map((mealData) => <ViewMeal key={mealData._id} mealData={mealData} />)
   )
 }

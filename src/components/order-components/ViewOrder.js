@@ -23,6 +23,13 @@ const ViewOrder = ({ history, match }) => {
       </Spinner>
     )
   }
+  const { id } = match.params || {}
+  const meal = id && orders.find(({ orders: [order] }) => order._id === id)
+
+  if (!meal) {
+    return <p>Cannot find your order.</p>
+  }
+
   const { title, cost, orders: [order] } = meal || {};
   const { quantity, pickupAt, totalAmt, cancelAt } = order;
   const customerId = order.customer._id ? order.customer._id : order.customer

@@ -64,8 +64,11 @@ const ViewMeal = ({ history, match, mealData }) => {
     )    
   }
   const { id } = (match && match.params) || {}
-  const meal = mealData || (id && meals && Array.isArray(meals) && meals.find((meal) => meal._id === id))
+  const meal = mealData || ( meals && Array.isArray(meals) && meals.find((meal) => meal._id === id))
 
+  if (!meal) {
+    return <p className="text-danger mt-3">Cannot find that meal!</p>
+  }
   const {
     title,
     description,

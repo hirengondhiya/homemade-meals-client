@@ -4,6 +4,7 @@ import Button from 'react-bootstrap/Button'
 // import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
+import Spinner from 'react-bootstrap/Spinner';
 
 import moment from 'moment'
 
@@ -55,6 +56,13 @@ const ViewMeal = ({ history, match, mealData }) => {
   const { store, dispatch, loggedInUser } = useGlobalState()
   const { meals } = store
 
+  if (meals === null) {
+    return (
+      <Spinner animation="border" role="status">
+        <span className="sr-only">Loading...</span>
+      </Spinner>
+    )    
+  }
   const { id } = (match && match.params) || {}
   const meal = mealData || (id && meals && Array.isArray(meals) && meals.find((meal) => meal._id === id))
 

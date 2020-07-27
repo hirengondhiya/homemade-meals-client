@@ -10,9 +10,10 @@ import moment from 'moment'
 
 import React, { useState } from 'react';
 // import { withRouter } from 'react-router-dom';
-
 import { useGlobalState } from '../../config/store'
 import { deleteMeal } from '../../services/mealServices'
+
+import OrdersTable from '../order-components/OrdersTableSellerView'
 
 const ViewMeal = ({ history, match, mealData }) => {
   // handle delete button
@@ -156,15 +157,28 @@ const ViewMeal = ({ history, match, mealData }) => {
         </Form.Group>
       </Form>
       {
-        loggedInUser && loggedInUser.role === "seller" &&
+        loggedInUser &&
+        loggedInUser.role === "seller" &&
         (
           <>
-            <Button variant="secondary" onClick={handleDelete} className="mr-4">Delete</Button>
-            <Button variant="secondary" onClick={handleEdit}>Edit</Button>
+            {
+              <>
+                <Button variant="warning" onClick={handleDelete} className="mr-4" disabled={new Date() > new Date(orderStarts)}>Delete</Button>
+                <Button variant="primary" disabled={new Date() > new Date(orderStarts)} onClick={handleEdit}>Edit</Button>
+              </>
+            }
+            {
+              meal.orders && meal.orders.length > 0 && (
+                <>
+                  <h3>Customer Orders</h3>
+                  <OrdersTable orders={meal.orders} />
+                </>
+              )
+            }
           </>
         )
       }
-      </>
+    </>
   )
   const mealNotFound = (
     <p className="text-danger mt-3">Oops! It appears we do not have meal with that id.</p>

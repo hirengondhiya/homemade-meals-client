@@ -12,7 +12,6 @@ import React, { useState } from 'react';
 
 import { useGlobalState } from '../../config/store'
 import { deleteMeal } from '../../services/mealServices'
-import { Container } from "react-bootstrap";
 
 const ViewMeal = ({ history, match, mealData }) => {
   // handle delete button

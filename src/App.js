@@ -42,13 +42,17 @@ const App = () => {
       })
       .catch((error) => {
         console.log('An error occurred fetching meals from the server:', error);
+        dispatch({
+          type: 'setMeals',
+          data: []
+        });
       }).finally(() => {
-
+        setLoadingStatus('meals-checked')
       });
   }
   const initialState = {
-    meals: [],
-    orders: [],
+    meals: null,
+    orders: null,
     error: null,
     info: null,
     ordersLoadFinished: false
@@ -67,7 +71,7 @@ const App = () => {
       })
       .catch((error) => {
         console.log('got an error trying to check authenticated user:', error);
-        setLoggedInUser(null);
+        // setLoggedInUser(null);
       })
       .finally(() => {
         setLoadingStatus('session-checked')
@@ -99,10 +103,7 @@ const App = () => {
             });
           })
           .finally(() => {
-            dispatch({
-              type: "setOrdersLoadFinished",
-              data: true
-            })
+            setLoadingStatus('orders-checked')
           })
       }
       // return a function that specifies any actions on component unmount

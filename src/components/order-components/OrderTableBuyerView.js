@@ -19,6 +19,19 @@ const OrderTableBuyerView = () => {
 			</Spinner>
 		);
 	}
-	return <div />;
+	return (
+		<Table striped bordered hover>
+			<thead>
+				<tr>
+					<th>#</th>
+					<th>Title</th>
+					<th>Order date</th>
+					<th>Pickup date</th>
+					<th>Quantity</th>
+					<th>Total Amount</th>
+				</tr>
+			</thead>
+		</Table>
+	);
 };
 export default OrderTableBuyerView;

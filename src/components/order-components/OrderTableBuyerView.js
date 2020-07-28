@@ -31,6 +31,25 @@ const OrderTableBuyerView = () => {
 					<th>Total Amount</th>
 				</tr>
 			</thead>
+			<tbody>
+				{orders.sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt)).map((meal, index) => {
+					const { title, orders: [ order ] } = meal;
+					const { pickupAt, totalAmt, updatedAt, quantity, _id } = order;
+					return (
+						<tr key={_id}>
+							<td>{index + 1}</td>
+							<td>{title}</td>
+							<td>{moment(updatedAt).format('DD/MM/YYYY hh:mm A')}</td>
+							<td>{moment(pickupAt).format('DD/MM/YYYY hh:mm A')}</td>
+							<td>{quantity}</td>
+							<td>{totalAmt}</td>
+							<td>
+								<Link to={`/orders/${_id}`}>view</Link>
+							</td>
+						</tr>
+					);
+				})}
+			</tbody>
 		</Table>
 	);
 };

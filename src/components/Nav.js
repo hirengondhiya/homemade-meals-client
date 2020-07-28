@@ -47,7 +47,7 @@ const Navigation = () => {
             {
               loggedInUser &&
               loggedInUser.role === 'buyer' &&
-              <Nav.Link as={NavLink} to="/myorders">My Orders</Nav.Link>
+              <Nav.Link as={NavLink} to="/orders">My Orders</Nav.Link>
             }
             {
               loggedInUser &&

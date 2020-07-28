@@ -7,3 +7,8 @@ import moment from 'moment';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useGlobalState } from '../../config/store';
+
+const OrderTableBuyerView = () => {
+	return <div />;
+};
+export default OrderTableBuyerView;

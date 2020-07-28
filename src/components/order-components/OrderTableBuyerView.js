@@ -20,37 +20,43 @@ const OrderTableBuyerView = () => {
 		);
 	}
 	return (
-		<Table striped bordered hover>
-			<thead>
-				<tr>
-					<th>#</th>
-					<th>Title</th>
-					<th>Order date</th>
-					<th>Pickup date</th>
-					<th>Quantity</th>
-					<th>Total Amount</th>
-				</tr>
-			</thead>
-			<tbody>
-				{orders.sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt)).map((meal, index) => {
-					const { title, orders: [ order ] } = meal;
-					const { pickupAt, totalAmt, updatedAt, quantity, _id } = order;
-					return (
-						<tr key={_id}>
-							<td>{index + 1}</td>
-							<td>{title}</td>
-							<td>{moment(updatedAt).format('DD/MM/YYYY hh:mm A')}</td>
-							<td>{moment(pickupAt).format('DD/MM/YYYY hh:mm A')}</td>
-							<td>{quantity}</td>
-							<td>{totalAmt}</td>
-							<td>
-								<Link to={`/orders/${_id}`}>view</Link>
-							</td>
+		<Container>
+			<Row className="justify-content-center">
+				<h3>Orders History</h3>
+				<Table striped bordered hover>
+					<thead>
+						<tr>
+							<th>#</th>
+							<th>Title</th>
+							<th>Order date</th>
+							<th>Pickup date</th>
+							<th>Quantity</th>
+							<th>Total Amount</th>
+							<th>View order</th>
 						</tr>
-					);
-				})}
-			</tbody>
-		</Table>
+					</thead>
+					<tbody>
+						{orders.sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt)).map((meal, index) => {
+							const { title, orders: [ order ] } = meal;
+							const { pickupAt, totalAmt, updatedAt, quantity, _id } = order;
+							return (
+								<tr key={_id}>
+									<td>{index + 1}</td>
+									<td>{title}</td>
+									<td>{moment(updatedAt).format('DD/MM/YYYY hh:mm A')}</td>
+									<td>{moment(pickupAt).format('DD/MM/YYYY hh:mm A')}</td>
+									<td>{quantity}</td>
+									<td>{totalAmt}</td>
+									<td>
+										<Link to={`/orders/${_id}`}>view</Link>
+									</td>
+								</tr>
+							);
+						})}
+					</tbody>
+				</Table>
+			</Row>
+		</Container>
 	);
 };
 export default OrderTableBuyerView;

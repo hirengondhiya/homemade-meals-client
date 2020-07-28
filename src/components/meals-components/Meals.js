@@ -5,19 +5,20 @@ import Spinner from 'react-bootstrap/Spinner';
 
 import moment from 'moment';
 import React from 'react';
+import {Link} from 'react-router-dom'
 import { useGlobalState } from '../../config/store';
 
 const Meals = () => {
 	const { store } = useGlobalState();
-  const { meals } = store;
-  
-  if (!meals) {
-    return (
-      <Spinner animation="border" role="status">
-        <span className="sr-only">Loading...</span>
-      </Spinner>
-    )
-  }
+	const { meals } = store;
+
+	if (!meals) {
+		return (
+			<Spinner animation="border" role="status">
+				<span className="sr-only">Loading...</span>
+			</Spinner>
+		);
+	}
 	const headings = {
 		title: { heading: 'Title' },
 		description: { heading: 'Description' },
@@ -44,7 +45,7 @@ const Meals = () => {
 							<tr key={meal._id}>
 								<td>{index + 1}</td>
 								{Object.keys(headings).map((heading) => (
-                  <td key={`${meal._id}${index}${heading}`}>
+									<td key={`${meal._id}${index}${heading}`}>
 										{headings[heading].type === 'date' ? (
 											moment(meal[heading]).format('MMMM Do YYYY, h:mm a')
 										) : (
@@ -52,6 +53,17 @@ const Meals = () => {
 										)}
 									</td>
 								))}
+								<td>
+									{moment(meal.orderStarts).isAfter(moment()) ? (
+										<>
+										<Link to={`/meals/${meal._id}`}>View</Link>
+										<Link to={`/meals/edit/${meal._id}`}>/Edit</Link>
+										
+										</>
+									) : (
+										<Link to={`/meals/${meal._id}`}>View</Link>
+									)}
+								</td>
 							</tr>
 						))}
 					</tbody>

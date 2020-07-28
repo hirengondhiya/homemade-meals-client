@@ -9,6 +9,16 @@ import { Link } from 'react-router-dom';
 import { useGlobalState } from '../../config/store';
 
 const OrderTableBuyerView = () => {
+	const { store } = useGlobalState();
+	const { orders } = store;
+
+	if (!orders) {
+		return (
+			<Spinner animation="border" role="status">
+				<span className="sr-only">Loading...</span>
+			</Spinner>
+		);
+	}
 	return <div />;
 };
 export default OrderTableBuyerView;

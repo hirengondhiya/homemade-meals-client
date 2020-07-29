@@ -25,7 +25,11 @@ const Meals = () => {
 
 	const linkStyles = {
 		margin: '.5em'
-		
+	}
+
+	const linkPadding = {
+		padding : '.5em',
+		margin: '.5em'
 	}
 
 	function handleDelete(meal) {
@@ -85,9 +89,9 @@ const Meals = () => {
 								<td>
 									{moment(meal.orderStarts).isAfter(moment()) ? (
 										<>
-										<Link style={linkStyles} className="btn btn-primary" size="sm" to={`/meals/${meal._id}`}>View</Link>
-										<Link style={linkStyles} className="btn btn-warning" size="sm" to={`/meals/edit/${meal._id}`}>Edit</Link>
-										<Button style={linkStyles} variant="danger" className="btn btn-danger" size="sm" onClick={
+										<Link style={linkStyles} className="btn btn-primary" to={`/meals/${meal._id}`}>View</Link>
+										<Link style={linkStyles} className="btn btn-warning" to={`/meals/edit/${meal._id}`}>Edit</Link>
+										<Button style={linkPadding} variant="danger" className="btn btn-danger" size='sm' onClick={
 										(event) => {
 											event.preventDefault()
 											handleDelete(meal)	

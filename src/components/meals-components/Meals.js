@@ -52,7 +52,6 @@ const Meals = () => {
 
 	const headings = {
 		title: { heading: 'Title' },
-		description: { heading: 'Description' },
 		mealType: { heading: 'Meal Type' },
 		cost: { heading: 'Cost' },
 		deliversOn: { heading: 'Delivers On', type: 'date' },

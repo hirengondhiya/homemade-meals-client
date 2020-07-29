@@ -32,7 +32,7 @@ const OrderTableBuyerView = () => {
 							<th>Pickup date</th>
 							<th>Quantity</th>
 							<th>Total Amount</th>
-							<th>View order</th>
+							<th>Action</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -48,7 +48,9 @@ const OrderTableBuyerView = () => {
 									<td>{quantity}</td>
 									<td>{totalAmt}</td>
 									<td>
-										<Link to={`/orders/${_id}`}>view</Link>
+										<Link className="btn btn-primary" to={`/orders/${_id}`}>
+											view
+										</Link>
 									</td>
 								</tr>
 							);

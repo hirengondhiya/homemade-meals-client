@@ -93,7 +93,7 @@ const Meals = () => {
 										<>
 										<Link style={linkStyles} className="btn btn-primary" to={`/meals/${meal._id}`}>View</Link>
 										<Link style={linkStyles} className="btn btn-warning" to={`/meals/edit/${meal._id}`}>Edit</Link>
-										<Button style={linkPadding} variant="danger" className="btn btn-danger" size='sm' onClick={
+										<Button style={linkPadding} variant="danger"  size='sm' onClick={
 										(event) => {
 											event.preventDefault()
 											handleDelete(meal)	

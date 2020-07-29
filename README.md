@@ -1,6 +1,19 @@
-Homemade Meals
+# Homemade Meals 
+
+
+**GitHub Repos**
+
+Client: https://github.com/homemade-meals/client
+Server:  https://github.com/homemade-meals/server
+
+**Deployed Links**
+
+Client: https://homemade-meals.netlify.app/
+Server: https://homemade-meals-server.herokuapp.com/
+
 
 **Table Of Contents**
+- [Homemade Meals](#homemade-meals)
 - [1. Description of your website](#1-description-of-your-website)
   - [1.1. Purpose](#11-purpose)
   - [1.2. Functionality / features](#12-functionality--features)

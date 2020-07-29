@@ -44,7 +44,6 @@ const ViewMeal = ({ history, match, mealData }) => {
       else
         setErrorMessage("Well, this is embarrassing... There was a problem on the server.")
     });
-    history.push(`/meals`);
   }
 
   // handle edit button

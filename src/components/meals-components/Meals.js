@@ -6,7 +6,7 @@ import Button from 'react-bootstrap/Button'
 
 
 import moment from 'moment';
-import React, {useState} from 'react';
+import React from 'react';
 import {Link} from 'react-router-dom'
 import { useGlobalState } from '../../config/store';
 import { deleteMeal } from '../../services/mealServices'
@@ -21,6 +21,11 @@ const Meals = () => {
 				<span className="sr-only">Loading...</span>
 			</Spinner>
 		);
+	}
+
+	const linkStyles = {
+		margin: '.5em'
+		
 	}
 
 	function handleDelete(meal) {
@@ -80,19 +85,18 @@ const Meals = () => {
 								<td>
 									{moment(meal.orderStarts).isAfter(moment()) ? (
 										<>
-										<Link className="btn btn-primary" size="sm" to={`/meals/${meal._id}`}>View</Link>
-										<Link className="btn btn-warning" size="sm" to={`/meals/edit/${meal._id}`}>Edit</Link>
-										<Button variant="danger" className="btn btn-danger" size="sm" onClick={
+										<Link style={linkStyles} className="btn btn-primary" size="sm" to={`/meals/${meal._id}`}>View</Link>
+										<Link style={linkStyles} className="btn btn-warning" size="sm" to={`/meals/edit/${meal._id}`}>Edit</Link>
+										<Button style={linkStyles} variant="danger" className="btn btn-danger" size="sm" onClick={
 										(event) => {
 											event.preventDefault()
-											handleDelete(meal)
-											
+											handleDelete(meal)	
 										}
 									}>Delete</Button>
 										
 										</>
 									) : (
-										<Link size="sm" className="btn btn-primary" to={`/meals/${meal._id}`}>View</Link>
+										<Link style={linkStyles} size="sm" className="btn btn-primary" to={`/meals/${meal._id}`}>View</Link>
 									)}
 								</td>
 								

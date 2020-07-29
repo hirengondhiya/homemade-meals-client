@@ -23,6 +23,7 @@ const Meals = () => {
 		);
 	}
 
+	// styling for buttons
 	const linkStyles = {
 		margin: '.5em'
 	}
@@ -32,6 +33,7 @@ const Meals = () => {
 		margin: '.5em'
 	}
 
+	// to handle delete button in the table
 	function handleDelete(meal) {
 		deleteMeal(meal._id).then(() => {
 		  console.log("deleted meal")
@@ -50,6 +52,7 @@ const Meals = () => {
 		})
 	}
 
+	// heading for the table
 	const headings = {
 		title: { heading: 'Title' },
 		mealType: { heading: 'Meal Type' },

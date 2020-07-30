@@ -1,19 +1,19 @@
-import React, { useState } from 'react';
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import Jumbotron from 'react-bootstrap/Jumbotron';
-import Button from 'react-bootstrap/Button';
-import Spinner from 'react-bootstrap/Spinner';
+import React, { useState } from "react";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Jumbotron from "react-bootstrap/Jumbotron";
+import Button from "react-bootstrap/Button";
+import Spinner from "react-bootstrap/Spinner";
 
-import moment from 'moment'
+import moment from "moment";
 
-import { useGlobalState } from '../../config/store'
+import { useGlobalState } from "../../config/store";
 
-import { deleteOrder } from '../../services/orderServices'
+import { deleteOrder } from "../../services/orderServices";
 
 const ViewOrder = ({ history, match }) => {
-  const { store, dispatch, loggedInUser } = useGlobalState()
+  const { store, dispatch, loggedInUser } = useGlobalState();
   const [errorMessage, setErrorMessage] = useState(null);
   const { orders } = store;
   if (!orders) {
@@ -21,36 +21,42 @@ const ViewOrder = ({ history, match }) => {
       <Spinner animation="border" role="status">
         <span className="sr-only">Loading...</span>
       </Spinner>
-    )
+    );
   }
-  const { id } = match.params || {}
-  const meal = id && orders.find(({ orders: [order] }) => order._id === id)
+  const { id } = match.params || {};
+  const meal = id && orders.find(({ orders: [order] }) => order._id === id);
 
   if (!meal) {
-    return <p>Cannot find your order.</p>
+    return <p>Cannot find your order.</p>;
   }
 
-  const { title, cost, orders: [order] } = meal || {};
+  const {
+    title,
+    cost,
+    orders: [order],
+  } = meal || {};
   const { quantity, pickupAt, totalAmt, cancelAt } = order;
-  const customerId = order.customer._id ? order.customer._id : order.customer
+  const customerId = order.customer._id ? order.customer._id : order.customer;
   function handleCancel(event) {
     event.preventDefault();
     // cancelOrder(order._id);
     deleteOrder(order._id)
       .then((updatedOrder) => {
-        const { orders: [order] } = updatedOrder
-        const others = orders.filter((m) => m.orders[0]._id !== order._id)
+        const {
+          orders: [order],
+        } = updatedOrder;
+        const others = orders.filter((m) => m.orders[0]._id !== order._id);
         dispatch({
           type: "setOrders",
-          data: [updatedOrder, ...others]
-        })
+          data: [updatedOrder, ...others],
+        });
         dispatch({
           type: "setInfo",
           data: {
             title: "Cancelled",
-            msg: "We have cancelled your order."
-          }
-        })
+            msg: "We have cancelled your order.",
+          },
+        });
         history.push(`/`);
       })
       .catch((err) => {
@@ -59,9 +65,12 @@ const ViewOrder = ({ history, match }) => {
         if (status === 400) setErrorMessage(errorMsg);
         else if (status === 403)
           setErrorMessage(
-            'Oops! It appears we lost your login session. Make sure 3rd party cookies are not blocked by your browser settings.'
+            "Oops! It appears we lost your login session. Make sure 3rd party cookies are not blocked by your browser settings."
           );
-        else setErrorMessage('Well, this is embarrassing... There was a problem on the server.');
+        else
+          setErrorMessage(
+            "Well, this is embarrassing... There was a problem on the server."
+          );
       });
   }
 
@@ -71,7 +80,7 @@ const ViewOrder = ({ history, match }) => {
   }
 
   const buttonStyling = {
-    margin: '.5em'
+    margin: ".5em",
   };
   return (
     <Container>
@@ -84,42 +93,45 @@ const ViewOrder = ({ history, match }) => {
               <h5>Dish: {title}</h5>
               <h5>Cost: {cost}</h5>
               <h5>Quantity ordered: {quantity}</h5>
-              <h5>Pickup At: {moment(pickupAt).format('MMMM Do YYYY, h:mm:ss a')}</h5>
-              {cancelAt && <h5>Cancelled: {moment(cancelAt).format('MMMM Do YYYY, h:mm:ss a')}</h5>}
+              <h5>
+                Pickup At: {moment(pickupAt).format("MMMM Do YYYY, h:mm:ss a")}
+              </h5>
+              {cancelAt && (
+                <h5>
+                  Cancelled:{" "}
+                  {moment(cancelAt).format("MMMM Do YYYY, h:mm:ss a")}
+                </h5>
+              )}
               <h5>Total: ${parseInt(totalAmt)}</h5>
-              {
-                loggedInUser &&
-                loggedInUser._id === customerId &&
-                !cancelAt &&
-                (
-                  <>
-                    <Button
-                      variant="primary"
-                      type="submit"
-                      className="mt-3"
-                      value="Update order"
-                      style={buttonStyling}
-                      onClick={handleEdit}
-                    >
-                      Edit Order
-              </Button>
-                    < Button
-                      variant="warning"
-                      type="submit"
-                      className="mt-3"
-                      value="Cancel order"
-                      onClick={handleCancel}
-                      style={buttonStyling}
-                    >
-                      Cancel Order
-              </Button>
-                  </>
-                )}
+              {loggedInUser && loggedInUser._id === customerId && !cancelAt && (
+                <>
+                  <Button
+                    variant="primary"
+                    type="submit"
+                    className="mt-3"
+                    value="Update order"
+                    style={buttonStyling}
+                    onClick={handleEdit}
+                  >
+                    Edit Order
+                  </Button>
+                  <Button
+                    variant="warning"
+                    type="submit"
+                    className="mt-3"
+                    value="Cancel order"
+                    onClick={handleCancel}
+                    style={buttonStyling}
+                  >
+                    Cancel Order
+                  </Button>
+                </>
+              )}
             </Jumbotron>
           </div>
         </Col>
       </Row>
-    </Container >
+    </Container>
   );
 };
 

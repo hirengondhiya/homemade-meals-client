@@ -1,11 +1,11 @@
 // change the theme
 $theme-colors: (
-  "primary": #6E3D90,
+  "primary": #6e3d90,
 );
 
 // Import Bootstrap and its default variables
-@import '~bootstrap/scss/bootstrap.scss';
+@import "~bootstrap/scss/bootstrap.scss";
 
 .bg-light-purple {
-  background-color: lighten(#6E3D90, 50%);
+  background-color: lighten(#6e3d90, 50%);
 }

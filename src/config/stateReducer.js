@@ -1,42 +1,42 @@
 export default function (state, action) {
   switch (action.type) {
-    case 'setMeals': {
+    case "setMeals": {
       return {
         ...state,
-        meals: action.data
+        meals: action.data,
       };
     }
-    case 'setOrders': {
+    case "setOrders": {
       return {
         ...state,
-        orders: action.data
+        orders: action.data,
       };
-    }      
+    }
     case "setError": {
       return {
         ...state,
-        error: action.data
-      }
+        error: action.data,
+      };
     }
     case "setInfo": {
       return {
         ...state,
-        info: action.data
-      }
+        info: action.data,
+      };
     }
     case "setOrdersLoadFinished": {
       return {
         ...state,
-        ordersLoadFinished: action.data
-      }
+        ordersLoadFinished: action.data,
+      };
     }
     case "setMealsLoadFinished": {
       return {
         ...state,
-        mealsLoadFinished: action.data
-      }
+        mealsLoadFinished: action.data,
+      };
     }
     default:
-      return state
+      return state;
   }
 }

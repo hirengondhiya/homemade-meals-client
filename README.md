@@ -1,11 +1,10 @@
-# Homemade Meals 
-
+# Homemade Meals
 
 **GitHub Repos**
 
 Client: https://github.com/homemade-meals/client
 
-Server:  https://github.com/homemade-meals/server
+Server: https://github.com/homemade-meals/server
 
 **Deployed Links**
 
@@ -13,8 +12,8 @@ Client: https://homemade-meals.netlify.app/
 
 Server: https://homemade-meals-server.herokuapp.com/
 
-
 **Table Of Contents**
+
 - [Homemade Meals](#homemade-meals)
 - [1. Description of your website](#1-description-of-your-website)
   - [1.1. Purpose](#11-purpose)
@@ -24,7 +23,7 @@ Server: https://homemade-meals-server.herokuapp.com/
     - [1.2.3. Order Management](#123-order-management)
     - [1.2.4. Menu Management](#124-menu-management)
   - [1.3. Target audience](#13-target-audience)
-  - [1.4. Tech stack	GENERAL](#14-tech-stackgeneral)
+  - [1.4. Tech stack GENERAL](#14-tech-stackgeneral)
 - [2. Dataflow Diagram](#2-dataflow-diagram)
 - [3. Application Architecture Diagram](#3-application-architecture-diagram)
 - [4. User Stories](#4-user-stories)
@@ -32,7 +31,9 @@ Server: https://homemade-meals-server.herokuapp.com/
 - [6. Project Management](#6-project-management)
 
 # 1. Description of your website
+
 ## 1.1. Purpose
+
 **What is this App about?**
 
 This app offers food lovers a platform to order healthy, authentic home-cooked food prepared by people who genuinely care about cooking. It allows people to buy fresh home-cooked food prepared by professional or hobbyist cooks using the best ingredients. It also provides users to choose from a variety of cuisines and home chefs.
@@ -54,48 +55,53 @@ We are introducing the fourth way of ordering food i.e ordering home-cooked food
 3. Pick up your meal and enjoy fresh, homemade food, and share your experience with us!
 
 ## 1.2. Functionality / features
+
 The app provides following functionality and features
 
 ### 1.2.1. User Management
-  
-  User management functionality provides ability to authenticate and authorize various users of the app. The functionality is implemented through following features
 
-  - Register
-  - Login
-  - Logout
+User management functionality provides ability to authenticate and authorize various users of the app. The functionality is implemented through following features
+
+- Register
+- Login
+- Logout
+
 ### 1.2.2. Profile Management
-  
-  Profile management functionality provides ability to the customers of the store to share contact and other related details in order to communicate with the store admins if required. It also provides store admins to publish the store address, and contact details.
 
-  The functionality is implemented through following features
+Profile management functionality provides ability to the customers of the store to share contact and other related details in order to communicate with the store admins if required. It also provides store admins to publish the store address, and contact details.
 
-  - Edit profile
-  - View customer details
-  - Edit store details
-  - View Store details
+The functionality is implemented through following features
+
+- Edit profile
+- View customer details
+- Edit store details
+- View Store details
+
 ### 1.2.3. Order Management
 
-  Order Management functionality provides customers to make, edit and cancel the orders as well as view order details and history. The functionality can be used by store admins to view orders for the day and the customers who made the orders.
+Order Management functionality provides customers to make, edit and cancel the orders as well as view order details and history. The functionality can be used by store admins to view orders for the day and the customers who made the orders.
 
-  The functionality is implemented through following features
+The functionality is implemented through following features
 
-  - Create Order
-  - Edit Order
-  - Cancel Order
-  - View Orders Made
-  - View Orders Received
+- Create Order
+- Edit Order
+- Cancel Order
+- View Orders Made
+- View Orders Received
+
 ### 1.2.4. Menu Management
 
-  Menu management functionality provides ablity to customers to view the menu of the day. It can be used by Store admins to create the menu of the day.
+Menu management functionality provides ablity to customers to view the menu of the day. It can be used by Store admins to create the menu of the day.
 
-  The functionality is implemented through follow features
+The functionality is implemented through follow features
 
-  - Create menu of the day
-  - Edit menu of the day
-  - Delete menu of the day
-  - View menu of the day
+- Create menu of the day
+- Edit menu of the day
+- Delete menu of the day
+- View menu of the day
 
 ## 1.3. Target audience
+
 We will generally have three targeted audience group:
 
 **College Students and Young Adults:**
@@ -110,9 +116,9 @@ Life of parents with young kids can be very busy. With endless things going arou
 
 This group of people are really busy with their work and career. After a long day at work, they don’t like to think about cooking food. So they are more likely to order food from our app, as it gives a healthy option to ordering food from restaurants or takeaways.
 
-Apart from this group, anyone who is passionate about food and would like to taste authentic  home-cooked meal would be our target customer.
+Apart from this group, anyone who is passionate about food and would like to taste authentic home-cooked meal would be our target customer.
 
-## 1.4. Tech stack	GENERAL
+## 1.4. Tech stack GENERAL
 
 - React.js: For rendering and management of front end of the app.
 - JSX: Used in conjunction with React, for describing and structuring UI of the app
@@ -136,11 +142,13 @@ Apart from this group, anyone who is passionate about food and would like to tas
 - Git: Used for source code management.
 
 # 2. Dataflow Diagram
+
 ![homemade meals dataflow diagram](docs/dfd/homemade-mels-dfd.svg)
 
 Above diagram depicts various processes, external entities, data stores and the flow of information among them.
 
 The System works as follows,
+
 1. Register
    Customer entity initiates 1.0 Register Process by providing Userid, Email and Password details. Register process verifies the details and passes on the User details to User store for storage.
 2. Login
@@ -154,11 +162,15 @@ The System works as follows,
    Customer entity initiates Order Pickup by provide Order Id, the process verifies the Order throgh Verifiy Order process, marks the order as picked up in Orders store, and then Customer picks up the meal.
 
 # 3. Application Architecture Diagram
+
 ![Application Architecture Diagram](docs/architectureDiagram/Architecture%20Diagram.png)
+
 # 4. User Stories
+
 There are two main users that will interact with our app. They are the store owner who will be selling the food and the customers who will be buying the food through the app. So the user stories are created thinking about how they would interact with the app and what necessary features and functions are necessary for the smooth operation of the app.
 
 **Store Admin User Stories**
+
 1. As a store admin, I want to register my store, so that I can sell the food through the app.
 2. As a store admin, I want to login to my account, so that I can update my profile, upload images of my food, create a menu of the day, check the quantity ordered for the day or delete the items.
 3. As a store admin, I want to logout from my account, so that no one can have access to my account.
@@ -167,9 +179,9 @@ There are two main users that will interact with our app. They are the store own
 6. As a store admin, I want to check what order has come through for the day, so that I will know in advance what food needs to be cooked and to what quantity.
 7. As a store admin, I want to edit the menu of the day, so that I can make necessary changes in the menu.
 8. As a store admin, I want to delete the menu of the day, so that I can remove anything that I don’t want to be seen on the website.
-9. As a store admin, I want to mark all the orders that have been picked by the customer, so that  no customer will falsely claim the order, after the order has already been picked.
+9. As a store admin, I want to mark all the orders that have been picked by the customer, so that no customer will falsely claim the order, after the order has already been picked.
 10. As a store admin, I want to edit my profile, so that I can make changes to my details if anything changes in the future.
-11. As  a store admin, I want to see my customer details, so that I can confirm their identity when they come to pick up the food.
+11. As a store admin, I want to see my customer details, so that I can confirm their identity when they come to pick up the food.
 
 **Customer User Stories**
 
@@ -177,21 +189,21 @@ There are two main users that will interact with our app. They are the store own
 2. As a customer, I want to login into my account, so that I can create, edit, and delete my order.
 3. As a customer, I want to logout from my account, so that no one can access my account.
 4. As a customer, I want to create order, so that I can order the food through the store.
-5. As a customer, I want to edit orders, so that I can make changes to what I ordered. 
+5. As a customer, I want to edit orders, so that I can make changes to what I ordered.
 6. As a customer, I want to cancel my order, so that I don’t have to pay for what I don’t want to order.
 7. As a customer, I want to view the orders that I made, so that I can reconfirm all the details and orders that I made.
 8. As a customer, I want to view my order history, so that I know what foods I have been ordering in the past and how much I have been paying.
 9. As a customer, I want to create my profile page, so that I don’t have to update my details everytime I order my food.
 10. As a customer, I want to get order confirmation, so that I can be sure that order has gone through and in case I don’t receive my order I have proof of purchase.
 
-
 # 5. Wireframes
+
 1. **Customer Views**
    1. **Home**
       1. **Signed Out**
-      ![](docs/wireframes/Home_customer_view_(not_logged_in).png)
+         ![](<docs/wireframes/Home_customer_view_(not_logged_in).png>)
       2. **Signed In**
-      ![](docs/wireframes/Home_customer_view_(logged_in).png)
+         ![](<docs/wireframes/Home_customer_view_(logged_in).png>)
    2. **Register**
       ![](docs/wireframes/Register_customer_view.png)
    3. **About us**
@@ -199,14 +211,14 @@ There are two main users that will interact with our app. They are the store own
    4. **My Profile**
       ![](docs/wireframes/My_Profile_customer_view.png)
    5. **Order Meal - form**
-      ![](docs/wireframes/Order_Item_customer_view.png) 
+      ![](docs/wireframes/Order_Item_customer_view.png)
    6. **Order Confirmation / View Order**
       ![](docs/wireframes/Order_Confirmation_View_Order_Customer_view.png)
    7. **Order History**
       ![](docs/wireframes/Order_History_customer_view.png)
 2. **Store Admin Views**
    1. **Home**
-      ![](docs/wireframes/Home%20-%20store%20admin%20view%20(logged%20in).png) 
+      ![](<docs/wireframes/Home%20-%20store%20admin%20view%20(logged%20in).png>)
    2. **About us**
       ![](docs/wireframes/About%20us-%20store%20admin%20view.png)
    3. **Edit About us - form**
@@ -220,6 +232,7 @@ There are two main users that will interact with our app. They are the store own
 3. **Common**
    1. **Login**
       ![](docs/wireframes/Login.png)
+
 # 6. Project Management
 
 The project will be developed using agile methodology. There are total four sprints planned, each of them being one week in duration. The first sprint is dedicated to inception, planning, and documentation. Remaining three sprints are dedicated to build in that one by one all the planned features of the project will be developed and deployed.
@@ -228,10 +241,10 @@ Trello board is used for planning and tracking of various tasks. The Trello boar
 
 Below screen prints shows state of tasks in various stages of the project.
 
-1 **Trello Image  (03-07-2020)**
+1 **Trello Image (03-07-2020)**
 ![Trello Image 1](docs/trello/Trello1.png)
 
-2 
+2
 ![Trello Image 2](docs/trello/Trello2.png)
 3
 ![Trello Image 3](docs/trello/Trello3.png)

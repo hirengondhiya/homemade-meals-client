@@ -63,7 +63,7 @@ const Navigation = () => {
               !loggedInUser &&
               <>
                 <Nav.Link as={NavLink} to="/register"  >Register</Nav.Link>
-                <Nav.Link as={NavLink} to="/login">Login</Nav.Link>
+                <Nav.Link data-cy="login" as={NavLink} to="/login">Login</Nav.Link>
               </>
             }
             {

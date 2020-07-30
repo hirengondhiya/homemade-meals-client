@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import { useGlobalState } from '../../config/store'
+import React, { useState, useEffect } from "react";
+import { useGlobalState } from "../../config/store";
 
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import Spinner from 'react-bootstrap/Spinner';
-import DatePicker from 'react-datepicker';
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Spinner from "react-bootstrap/Spinner";
+import DatePicker from "react-datepicker";
 
-import { updateOrder } from '../../services/orderServices'
+import { updateOrder } from "../../services/orderServices";
 
 const EditOrder = ({ history, match }) => {
   // handling the change in the form field
@@ -18,7 +18,7 @@ const EditOrder = ({ history, match }) => {
     const value = event.target.value;
     setFormState({
       ...formState,
-      [name]: value
+      [name]: value,
     });
   }
 
@@ -29,23 +29,25 @@ const EditOrder = ({ history, match }) => {
       _id: formState.orderId,
       pickupAt: formState.pickupAt.toISOString(),
       quantity: parseInt(formState.quantity),
-      totalAmt: parseInt(meal.cost) * parseInt(formState.quantity)
+      totalAmt: parseInt(meal.cost) * parseInt(formState.quantity),
     };
     updateOrder(updates)
       .then((updatedOrder) => {
-        const { orders: [order] } = updatedOrder
-        const others = orders.filter((m) => m.orders[0]._id !== order._id)
+        const {
+          orders: [order],
+        } = updatedOrder;
+        const others = orders.filter((m) => m.orders[0]._id !== order._id);
         dispatch({
-          type: 'setOrders',
-          data: [updatedOrder, ...others]
+          type: "setOrders",
+          data: [updatedOrder, ...others],
         });
         dispatch({
-          type: 'setInfo',
+          type: "setInfo",
           data: {
-            title: 'Success!',
-            msg: 'We have updated your order.'
-          }
-        });        
+            title: "Success!",
+            msg: "We have updated your order.",
+          },
+        });
         history.push(`/orders/${order._id}`);
       })
       .catch((err) => {
@@ -54,66 +56,74 @@ const EditOrder = ({ history, match }) => {
         if (status === 400) setErrorMessage(errorMsg);
         else if (status === 403)
           setErrorMessage(
-            'Oops! It appears we lost your login session. Make sure 3rd party cookies are not blocked by your browser settings.'
+            "Oops! It appears we lost your login session. Make sure 3rd party cookies are not blocked by your browser settings."
           );
-        else setErrorMessage('Well, this is embarrassing... There was a problem on the server.');
+        else
+          setErrorMessage(
+            "Well, this is embarrassing... There was a problem on the server."
+          );
       });
   }
   // initalformState from the order
   const initialFormState = {
-    pickupAt: '',
-    quantity: '',
+    pickupAt: "",
+    quantity: "",
     pickupAtMin: new Date(),
     pickupAtMax: new Date(),
-    customerId: '',
-    cancelAt: '',
-    orderId: ''
+    customerId: "",
+    cancelAt: "",
+    orderId: "",
   };
   const [formState, setFormState] = useState(initialFormState);
-  const { store, dispatch } = useGlobalState()
+  const { store, dispatch } = useGlobalState();
   const { orders } = store;
-  const { id } = match.params || {}
+  const { id } = match.params || {};
 
-  let meal = id && Array.isArray(orders) && orders.find(({ orders: [order] }) => order._id === id)
+  let meal =
+    id &&
+    Array.isArray(orders) &&
+    orders.find(({ orders: [order] }) => order._id === id);
   const [errorMessage, setErrorMessage] = useState(null);
 
-  useEffect(
-    () => {
-      if (meal) {
-        const { deliversOn, orders: [order] } = meal || {};
-        const { _id, quantity, pickupAt, cancelAt } = order;
-        const customerId = order.customer._id ? order.customer._id : order.customer
-        // Set the formState to the fields in the post after mount and when post changes
-        order &&
-          setFormState({
-            pickupAt: new Date(pickupAt),
-            quantity,
-            pickupAtMin: new Date(deliversOn),
-            pickupAtMax: new Date(deliversOn),
-            customerId,
-            cancelAt,
-            orderId: _id
-          });
-      }
-    },
-    [meal]
-  );
+  useEffect(() => {
+    if (meal) {
+      const {
+        deliversOn,
+        orders: [order],
+      } = meal || {};
+      const { _id, quantity, pickupAt, cancelAt } = order;
+      const customerId = order.customer._id
+        ? order.customer._id
+        : order.customer;
+      // Set the formState to the fields in the post after mount and when post changes
+      order &&
+        setFormState({
+          pickupAt: new Date(pickupAt),
+          quantity,
+          pickupAtMin: new Date(deliversOn),
+          pickupAtMax: new Date(deliversOn),
+          customerId,
+          cancelAt,
+          orderId: _id,
+        });
+    }
+  }, [meal]);
   if (!id || !meal) {
     return (
       <Spinner animation="border" role="status">
         <span className="sr-only">Loading...</span>
       </Spinner>
-    )
+    );
   }
   if (formState.cancelAt) {
     dispatch({
-      type: 'setError',
+      type: "setError",
       data: {
-        title: 'Not allowed',
-        msg: "Cannot edit cancelled meal. Please create new order."
-      }
-    })
-    history.push("/")
+        title: "Not allowed",
+        msg: "Cannot edit cancelled meal. Please create new order.",
+      },
+    });
+    history.push("/");
   }
   return (
     <Container>
@@ -124,18 +134,36 @@ const EditOrder = ({ history, match }) => {
             {errorMessage && <p className="text-danger mt-3">{errorMessage}</p>}
             <Form.Group>
               <Form.Label>Dish:</Form.Label>
-              <Form.Control type="text" id="title" name="title" value={meal.title} readOnly />
+              <Form.Control
+                type="text"
+                id="title"
+                name="title"
+                value={meal.title}
+                readOnly
+              />
             </Form.Group>
             <Form.Group>
               <Form.Label>Cost:</Form.Label>
-              <Form.Control type="text" id="cost" name="cost" value={meal.cost} readOnly />
+              <Form.Control
+                type="text"
+                id="cost"
+                name="cost"
+                value={meal.cost}
+                readOnly
+              />
             </Form.Group>
             <Form.Group>
-              <Form.Label htmlFor="pickupAt">Pickup Time (date and time):</Form.Label>
+              <Form.Label htmlFor="pickupAt">
+                Pickup Time (date and time):
+              </Form.Label>
               <DatePicker
                 name="pickupAt"
                 selected={formState.pickupAt}
-                onChange={(selectedDate) => handleChange({ target: { name: 'pickupAt', value: selectedDate } })}
+                onChange={(selectedDate) =>
+                  handleChange({
+                    target: { name: "pickupAt", value: selectedDate },
+                  })
+                }
                 minDate={formState.pickupAtMin}
                 maxDate={formState.pickupAtMax}
                 timeIntervals={15}
@@ -144,7 +172,10 @@ const EditOrder = ({ history, match }) => {
               />
             </Form.Group>
             <Form.Group>
-              <Form.Label htmlFor="quantity"> Max Order Quantity (between 1 and 50):</Form.Label>
+              <Form.Label htmlFor="quantity">
+                {" "}
+                Max Order Quantity (between 1 and 50):
+              </Form.Label>
               <Form.Control
                 required
                 type="number"
@@ -168,7 +199,7 @@ const EditOrder = ({ history, match }) => {
             </Form.Group>
             <Button variant="primary" type="submit" className="mt-3">
               Update Order
-						</Button>
+            </Button>
           </Form>
         </Col>
       </Row>

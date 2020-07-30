@@ -1,49 +1,56 @@
 import "react-datepicker/dist/react-datepicker.css";
-import Form from 'react-bootstrap/Form'
-import Button from 'react-bootstrap/Button'
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
 // import Container from 'react-bootstrap/Container'
-import Row from 'react-bootstrap/Row'
-import Col from 'react-bootstrap/Col'
-import Spinner from 'react-bootstrap/Spinner';
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Spinner from "react-bootstrap/Spinner";
 
-import moment from 'moment'
+import moment from "moment";
 
-import React, { useState } from 'react';
+import React, { useState } from "react";
 // import { withRouter } from 'react-router-dom';
-import { useGlobalState } from '../../config/store'
-import { deleteMeal } from '../../services/mealServices'
+import { useGlobalState } from "../../config/store";
+import { deleteMeal } from "../../services/mealServices";
 
-import OrdersTable from '../order-components/OrdersTableSellerView'
+import OrdersTable from "../order-components/OrdersTableSellerView";
 
 const ViewMeal = ({ history, match, mealData }) => {
   // handle delete button
   function handleDelete(event) {
     event.preventDefault();
-    deleteMeal(meal._id).then(() => {
-      console.log("deleted meal")
-      const updatedMeals = meals.filter((storedMeal) => storedMeal._id !== meal._id)
-      dispatch({
-        type: "setMeals",
-        data: updatedMeals
+    deleteMeal(meal._id)
+      .then(() => {
+        console.log("deleted meal");
+        const updatedMeals = meals.filter(
+          (storedMeal) => storedMeal._id !== meal._id
+        );
+        dispatch({
+          type: "setMeals",
+          data: updatedMeals,
+        });
+        dispatch({
+          type: "setInfo",
+          data: {
+            title: "Deleted",
+            msg: "We have deleted the meal for you.",
+          },
+        });
+        history.push("/");
       })
-      dispatch({
-        type: "setInfo",
-        data: {
-          title: "Deleted",
-          msg: "We have deleted the meal for you."
-        }
-      })
-      history.push("/")
-    }).catch((err) => {
-      const { status, data } = err.response || {}
-      const { errorMsg } = data || {}
-      if (status === 400)
-        setErrorMessage(errorMsg)
-      else if (status === 403)
-        setErrorMessage("Oops! It appears we lost your login session. Make sure 3rd party cookies are not blocked by your browser settings.")
-      else
-        setErrorMessage("Well, this is embarrassing... There was a problem on the server.")
-    });
+      .catch((err) => {
+        const { status, data } = err.response || {};
+        const { errorMsg } = data || {};
+        if (status === 400) setErrorMessage(errorMsg);
+        else if (status === 403)
+          setErrorMessage(
+            "Oops! It appears we lost your login session. Make sure 3rd party cookies are not blocked by your browser settings."
+          );
+        else
+          setErrorMessage(
+            "Well, this is embarrassing... There was a problem on the server."
+          );
+      });
   }
 
   // handle edit button
@@ -52,22 +59,24 @@ const ViewMeal = ({ history, match, mealData }) => {
     history.push(`/meals/edit/${meal._id}`);
   }
 
-  const [errorMessage, setErrorMessage] = useState(null)
-  const { store, dispatch, loggedInUser } = useGlobalState()
-  const { meals } = store
+  const [errorMessage, setErrorMessage] = useState(null);
+  const { store, dispatch, loggedInUser } = useGlobalState();
+  const { meals } = store;
 
   if (meals === null) {
     return (
       <Spinner animation="border" role="status">
         <span className="sr-only">Loading...</span>
       </Spinner>
-    )    
+    );
   }
-  const { id } = (match && match.params) || {}
-  const meal = mealData || ( meals && Array.isArray(meals) && meals.find((meal) => meal._id === id))
+  const { id } = (match && match.params) || {};
+  const meal =
+    mealData ||
+    (meals && Array.isArray(meals) && meals.find((meal) => meal._id === id));
 
   if (!meal) {
-    return <p className="text-danger mt-3">Cannot find that meal!</p>
+    return <p className="text-danger mt-3">Cannot find that meal!</p>;
   }
   const {
     title,
@@ -77,115 +86,123 @@ const ViewMeal = ({ history, match, mealData }) => {
     orderStarts,
     orderEnds,
     maxOrders,
-    cost
+    cost,
   } = meal || {};
 
   const form = (
     <>
       <Form>
         <h1>Meal Details</h1>
-        {
-          errorMessage &&
-          <p className="text-danger mt-3">{errorMessage}</p>
-        }
+        {errorMessage && <p className="text-danger mt-3">{errorMessage}</p>}
         <Form.Group as={Row}>
-          <Form.Label column lg="2"><strong>Title</strong></Form.Label>
+          <Form.Label column lg="2">
+            <strong>Title</strong>
+          </Form.Label>
           <Col lg="10">
-            <Form.Control
-              plaintext readOnly defaultValue={title}
-            />
+            <Form.Control plaintext readOnly defaultValue={title} />
           </Col>
         </Form.Group>
         <Form.Group as={Row}>
-          <Form.Label column lg="2"><strong>Description</strong></Form.Label>
+          <Form.Label column lg="2">
+            <strong>Description</strong>
+          </Form.Label>
           <Col lg="12">
-            <Form.Control as="textarea"
-              plaintext readOnly defaultValue={description}
+            <Form.Control
+              as="textarea"
+              plaintext
+              readOnly
+              defaultValue={description}
             />
           </Col>
         </Form.Group>
         <Form.Group as={Row}>
-          <Form.Label column lg="2"><strong>Meal Type</strong></Form.Label>
+          <Form.Label column lg="2">
+            <strong>Meal Type</strong>
+          </Form.Label>
           <Col lg="10">
             <Form.Control
-              plaintext readOnly defaultValue={mealType}
+              plaintext
+              readOnly
+              defaultValue={mealType}
               className="text-capitalize"
             />
           </Col>
         </Form.Group>
         <Form.Group as={Row}>
-          <Form.Label column lg="2"><strong>Pickup Time</strong></Form.Label>
+          <Form.Label column lg="2">
+            <strong>Pickup Time</strong>
+          </Form.Label>
+          <Col lg="10">{moment(deliversOn).format("MMMM Do YYYY, h:mm a")}</Col>
+        </Form.Group>
+        <Form.Group as={Row}>
+          <Form.Label column lg="2">
+            <strong>Accepting order from</strong>
+          </Form.Label>
           <Col lg="10">
-            {
-              moment(deliversOn).format('MMMM Do YYYY, h:mm a')
-            }
+            {moment(orderStarts).format("MMMM Do YYYY, h:mm a")}
           </Col>
         </Form.Group>
         <Form.Group as={Row}>
-          <Form.Label column lg="2"><strong>Accepting order from</strong></Form.Label>
+          <Form.Label column lg="2">
+            <strong>Order ends from</strong>
+          </Form.Label>
+          <Col lg="10">{moment(orderEnds).format("MMMM Do YYYY, h:mm a")}</Col>
+        </Form.Group>
+        <Form.Group as={Row}>
+          <Form.Label column lg="2">
+            <strong>Max Order Quantity</strong>
+          </Form.Label>
           <Col lg="10">
-            {
-              moment(orderStarts).format('MMMM Do YYYY, h:mm a')
-            }
+            <Form.Control plaintext readOnly defaultValue={maxOrders} />
           </Col>
         </Form.Group>
         <Form.Group as={Row}>
-          <Form.Label column lg="2"><strong>Order ends from</strong></Form.Label>
+          <Form.Label column lg="2">
+            <strong>Cost per meal</strong>
+          </Form.Label>
           <Col lg="10">
-            {
-              moment(orderEnds).format('MMMM Do YYYY, h:mm a')
-            }
-          </Col>
-        </Form.Group>
-        <Form.Group as={Row}>
-          <Form.Label column lg="2"><strong>Max Order Quantity</strong></Form.Label>
-          <Col lg="10">
-
-            <Form.Control
-              plaintext readOnly defaultValue={maxOrders}
-            />
-          </Col>
-        </Form.Group>
-        <Form.Group as={Row}>
-          <Form.Label column lg="2"><strong>Cost per meal</strong></Form.Label>
-          <Col lg="10">
-            <Form.Control
-              plaintext readOnly defaultValue={cost}
-            />
+            <Form.Control plaintext readOnly defaultValue={cost} />
           </Col>
         </Form.Group>
       </Form>
-      {
-        loggedInUser &&
-        loggedInUser.role === "seller" &&
-        (
-          <>
-            {
-              <>
-                <Button variant="warning" onClick={handleDelete} className="mr-4" disabled={new Date() > new Date(orderStarts)}>Delete</Button>
-                <Button variant="primary" disabled={new Date() > new Date(orderStarts)} onClick={handleEdit}>Edit</Button>
-              </>
-            }
-            {
-              meal.orders && meal.orders.length > 0 && (
-                <>
-                  <h3>Customer Orders</h3>
-                  <OrdersTable orders={meal.orders} />
-                </>
-              )
-            }
-          </>
-        )
-      }
+      {loggedInUser && loggedInUser.role === "seller" && (
+        <>
+          {
+            <>
+              <Button
+                variant="warning"
+                onClick={handleDelete}
+                className="mr-4"
+                disabled={new Date() > new Date(orderStarts)}
+              >
+                Delete
+              </Button>
+              <Button
+                variant="primary"
+                disabled={new Date() > new Date(orderStarts)}
+                onClick={handleEdit}
+              >
+                Edit
+              </Button>
+            </>
+          }
+          {meal.orders && meal.orders.length > 0 && (
+            <>
+              <h3>Customer Orders</h3>
+              <OrdersTable orders={meal.orders} />
+            </>
+          )}
+        </>
+      )}
     </>
-  )
-  const mealNotFound = (
-    <p className="text-danger mt-3">Oops! It appears we do not have meal with that id.</p>
-  )
-  return (
-    meal ? form : mealNotFound
   );
+  const mealNotFound = (
+    <p className="text-danger mt-3">
+      Oops! It appears we do not have meal with that id.
+    </p>
+  );
+  return meal ? form : mealNotFound;
 };
 
 // export default withRouter(ViewMeal);
-export default ViewMeal
+export default ViewMeal;

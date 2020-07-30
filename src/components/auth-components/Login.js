@@ -64,7 +64,7 @@ const Login = ({ history, location }) => {
 		<Container>
 			<Row className="justify-content-center">
 				<Col lg={4}>
-					<Form onSubmit={handleSubmit}>
+					<Form data-cy="login-form" onSubmit={handleSubmit}>
 						<h2>Login</h2>
 						{errorMessage && <p className="text-danger mt-3">{errorMessage}</p>}
 						<Form.Group>

@@ -70,6 +70,7 @@ const Login = ({ history, location }) => {
 						<Form.Group>
 							<Form.Label>Username</Form.Label>
 							<Form.Control
+								data-cy="username"
 								type="text"
 								name="username"
 								required
@@ -80,6 +81,7 @@ const Login = ({ history, location }) => {
 						<Form.Group>
 							<Form.Label>Password</Form.Label>
 							<Form.Control
+								data-cy="password"
 								type="password"
 								name="password"
 								required
@@ -87,7 +89,7 @@ const Login = ({ history, location }) => {
 								onChange={handleChange}
 							/>
 						</Form.Group>
-						<Button variant="primary" type="submit" className="mt-3">
+						<Button data-cy="login-button" variant="primary" type="submit" className="mt-3">
 							Submit
 						</Button>
 					</Form>

@@ -1,17 +1,17 @@
-import 'react-datepicker/dist/react-datepicker.css';
-import React, { useState, useEffect } from 'react';
+import "react-datepicker/dist/react-datepicker.css";
+import React, { useState, useEffect } from "react";
 
-import Form from 'react-bootstrap/Form';
-import Spinner from 'react-bootstrap/Spinner';
-import Button from 'react-bootstrap/Button';
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
+import Form from "react-bootstrap/Form";
+import Spinner from "react-bootstrap/Spinner";
+import Button from "react-bootstrap/Button";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 
-import DatePicker from 'react-datepicker';
+import DatePicker from "react-datepicker";
 
-import { useGlobalState } from '../../config/store'
-import { addOrder } from '../../services/orderServices'
+import { useGlobalState } from "../../config/store";
+import { addOrder } from "../../services/orderServices";
 
 const OrderMeal = ({ history, match }) => {
   function handleChange(event) {
@@ -19,7 +19,7 @@ const OrderMeal = ({ history, match }) => {
     const value = event.target.value;
     setFormState({
       ...formState,
-      [name]: value
+      [name]: value,
     });
   }
 
@@ -29,21 +29,23 @@ const OrderMeal = ({ history, match }) => {
       mealId: meal._id,
       pickupAt: new Date(formState.pickupAt).toISOString(),
       quantity: parseInt(formState.quantity),
-      totalAmt: parseInt(meal.cost) * parseInt(formState.quantity)
+      totalAmt: parseInt(meal.cost) * parseInt(formState.quantity),
     };
     addOrder(newOrder)
       .then((mealOrder) => {
         dispatch({
-          type: 'setOrders',
-          data: [mealOrder, ...store.orders]
-        })
+          type: "setOrders",
+          data: [mealOrder, ...store.orders],
+        });
         dispatch({
-          type: 'setInfo',
+          type: "setInfo",
           data: {
-            msg: "Your order is confirmed!"
-          }
-        })
-        const { orders: [order] } = mealOrder
+            msg: "Your order is confirmed!",
+          },
+        });
+        const {
+          orders: [order],
+        } = mealOrder;
         history.push(`/orders/${order._id}`);
       })
       .catch((err) => {
@@ -52,22 +54,25 @@ const OrderMeal = ({ history, match }) => {
         if (status === 400) setErrorMessage(errorMsg);
         else if (status === 403)
           setErrorMessage(
-            'Oops! It appears we lost your login session. Make sure 3rd party cookies are not blocked by your browser settings.'
+            "Oops! It appears we lost your login session. Make sure 3rd party cookies are not blocked by your browser settings."
           );
-        else setErrorMessage('Well, this is embarrassing... There was a problem on the server.');
+        else
+          setErrorMessage(
+            "Well, this is embarrassing... There was a problem on the server."
+          );
       });
   }
   const initialFormState = {
-    pickupAt: '',
-    quantity: '',
+    pickupAt: "",
+    quantity: "",
     pickupAtMin: new Date(),
-    pickupAtMax: new Date()
+    pickupAtMax: new Date(),
   };
   const [formState, setFormState] = useState(initialFormState);
   const [errorMessage, setErrorMessage] = useState(null);
-  const { store, dispatch } = useGlobalState()
-  const { id } = (match && match.params) || {}
-  const meal = id && store.meals && store.meals.find((meal) => meal._id === id)
+  const { store, dispatch } = useGlobalState();
+  const { id } = (match && match.params) || {};
+  const meal = id && store.meals && store.meals.find((meal) => meal._id === id);
 
   useEffect(() => {
     if (meal) {
@@ -76,16 +81,16 @@ const OrderMeal = ({ history, match }) => {
         quantity: parseInt(1),
         pickupAtMin: new Date(meal.deliversOn),
         pickupAtMax: new Date(meal.deliversOn),
-      })
+      });
     }
-  }, [meal])
+  }, [meal]);
 
   if (!id || !meal) {
     return (
       <Spinner animation="border" role="status">
         <span className="sr-only">Loading...</span>
       </Spinner>
-    )
+    );
   }
   return (
     <Container>
@@ -96,18 +101,36 @@ const OrderMeal = ({ history, match }) => {
             {errorMessage && <p className="text-danger mt-3">{errorMessage}</p>}
             <Form.Group>
               <Form.Label>Dish:</Form.Label>
-              <Form.Control type="text" id="title" name="title" value={meal.title} readOnly />
+              <Form.Control
+                type="text"
+                id="title"
+                name="title"
+                value={meal.title}
+                readOnly
+              />
             </Form.Group>
             <Form.Group>
               <Form.Label>Cost:</Form.Label>
-              <Form.Control type="text" id="cost" name="cost" value={meal.cost} readOnly />
+              <Form.Control
+                type="text"
+                id="cost"
+                name="cost"
+                value={meal.cost}
+                readOnly
+              />
             </Form.Group>
             <Form.Group>
-              <Form.Label htmlFor="pickupAt" className="mr-4">Pickup Time (date and time):</Form.Label>
+              <Form.Label htmlFor="pickupAt" className="mr-4">
+                Pickup Time (date and time):
+              </Form.Label>
               <DatePicker
                 name="pickupAt"
                 selected={formState.pickupAt}
-                onChange={(selectedDate) => handleChange({ target: { name: 'pickupAt', value: selectedDate } })}
+                onChange={(selectedDate) =>
+                  handleChange({
+                    target: { name: "pickupAt", value: selectedDate },
+                  })
+                }
                 minDate={formState.pickupAtMin}
                 maxDate={formState.pickupAtMax}
                 timeIntervals={15}
@@ -116,7 +139,10 @@ const OrderMeal = ({ history, match }) => {
               />
             </Form.Group>
             <Form.Group>
-              <Form.Label htmlFor="quantity"> Max Order Quantity (between 1 and 50):</Form.Label>
+              <Form.Label htmlFor="quantity">
+                {" "}
+                Max Order Quantity (between 1 and 50):
+              </Form.Label>
               <Form.Control
                 required
                 type="number"
@@ -138,9 +164,14 @@ const OrderMeal = ({ history, match }) => {
                 readOnly
               />
             </Form.Group>
-            <Button variant="primary" type="submit" className="mt-3" value="Confirm Order">
+            <Button
+              variant="primary"
+              type="submit"
+              className="mt-3"
+              value="Confirm Order"
+            >
               Confirm Order
-						</Button>
+            </Button>
           </Form>
         </Col>
       </Row>

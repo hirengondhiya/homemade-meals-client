@@ -38,7 +38,7 @@ const Navigation = () => {
   const { loggedInUser, setLoggedInUser, dispatch } = useGlobalState()
   // /*
   return (
-    <Navbar collapseOnSelect expand="lg" bg="primary" variant="dark">
+    <Navbar data-cy="navbar" collapseOnSelect expand="lg" bg="primary" variant="dark">
       <Container>
         <Navbar.Brand as={NavLink} to="/">Homemade Meals</Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
@@ -72,7 +72,7 @@ const Navigation = () => {
                 <Navbar.Text>
                   Logged in as: <strong>{loggedInUser.username}</strong>
                 </Navbar.Text>
-                <Nav.Link as={NavLink} to="/" onClick={handleLogout}>Logout</Nav.Link>
+                <Nav.Link data-cy='logout' as={NavLink} to="/" onClick={handleLogout}>Logout</Nav.Link>
               </>
             }
           </Nav>

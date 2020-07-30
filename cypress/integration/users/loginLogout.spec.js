@@ -26,5 +26,16 @@ describe('Test login', () => {
 		cy.get('[data-cy=username]').type(username);
 		cy.get('[data-cy=password]').type(password);
 		cy.get('[data-cy=login-button]').click();
+		cy.get('[data-cy=logout]').should('be.visible');
+	});
+});
+describe('Test logout', () => {
+	it('should successfully logout', () => {
+		const { username, password } = fixtures.registeredUser;
+		cy.get('[data-cy=login]').click();
+		cy.get('[data-cy=username]').type(username);
+		cy.get('[data-cy=password]').type(password);
+		cy.get('[data-cy=login-button]').click();
+		cy.get('[data-cy=logout]').click();
 	});
 });

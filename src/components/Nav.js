@@ -51,7 +51,7 @@ const Navigation = () => {
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="mr-auto">
             {loggedInUser && loggedInUser.role === "buyer" && (
-              <Nav.Link as={NavLink} to="/orders">
+              <Nav.Link data-cy="orders" as={NavLink} to="/orders">
                 My Orders
               </Nav.Link>
             )}
@@ -60,7 +60,7 @@ const Navigation = () => {
                 <Nav.Link as={NavLink} to="/meals/new">
                   Create
                 </Nav.Link>
-                <Nav.Link as={NavLink} to="/meals">
+                <Nav.Link data-cy="meals" as={NavLink} to="/meals">
                   Meals history
                 </Nav.Link>
               </>
@@ -69,7 +69,7 @@ const Navigation = () => {
           <Nav>
             {!loggedInUser && (
               <>
-                <Nav.Link as={NavLink} to="/register">
+                <Nav.Link as={NavLink} to="/register" data-cy="register">
                   Register
                 </Nav.Link>
                 <Nav.Link as={NavLink} to="/login">

@@ -6,9 +6,24 @@ Deployed App: https://homemade-meals.netlify.app/
 
 GitHub Organization: https://github.com/homemade-meals
 
+Original Part A Documentation: https://github.com/homemade-meals/documentation
+
+_Table of Contents_
+
+- [Homemade Meals - MERN Stack Project](#homemade-meals---mern-stack-project)
+  - [- by Hiren Gondhiya and Niraj Amatya](#ulliby-hiren-gondhiya-and-niraj-amatyaliul)
+  - [Running Project Locally](#running-project-locally)
+    - [Pre-requisite (MongoDB)](#pre-requisite-mongodb)
+    - [Server](#server)
+    - [Client](#client)
+  - [Cloud Deployment and Environment Variables](#cloud-deployment-and-environment-variables)
+    - [Server](#server-1)
+    - [Client](#client-1)
+  - [Test Results](#test-results)
+
 ## Running Project Locally
 
-### Pre-requisite
+### Pre-requisite (MongoDB)
 
 To run project locally MongoDB must be installed and running locally on default port 27017. At the time of development of application the app was run on MongoDB Community Edition Version 4.2.6
 

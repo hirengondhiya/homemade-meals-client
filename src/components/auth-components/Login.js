@@ -70,12 +70,13 @@ const Login = ({ history, location }) => {
     <Container>
       <Row className="justify-content-center">
         <Col lg={4}>
-          <Form onSubmit={handleSubmit}>
+          <Form data-cy="login-form" onSubmit={handleSubmit}>
             <h2>Login</h2>
             {errorMessage && <p className="text-danger mt-3">{errorMessage}</p>}
             <Form.Group>
               <Form.Label>Username</Form.Label>
               <Form.Control
+                data-cy="username"
                 type="text"
                 name="username"
                 required
@@ -86,6 +87,7 @@ const Login = ({ history, location }) => {
             <Form.Group>
               <Form.Label>Password</Form.Label>
               <Form.Control
+                data-cy="password"
                 type="password"
                 name="password"
                 required
@@ -93,7 +95,12 @@ const Login = ({ history, location }) => {
                 onChange={handleChange}
               />
             </Form.Group>
-            <Button variant="primary" type="submit" className="mt-3">
+            <Button
+              data-cy="login-button"
+              variant="primary"
+              type="submit"
+              className="mt-3"
+            >
               Submit
             </Button>
           </Form>

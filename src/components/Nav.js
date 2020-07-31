@@ -42,7 +42,13 @@ const Navigation = () => {
   const { loggedInUser, setLoggedInUser, dispatch } = useGlobalState();
   // /*
   return (
-    <Navbar collapseOnSelect expand="lg" bg="primary" variant="dark">
+    <Navbar
+      data-cy="navbar"
+      collapseOnSelect
+      expand="lg"
+      bg="primary"
+      variant="dark"
+    >
       <Container>
         <Navbar.Brand as={NavLink} to="/">
           Homemade Meals
@@ -72,7 +78,7 @@ const Navigation = () => {
                 <Nav.Link as={NavLink} to="/register">
                   Register
                 </Nav.Link>
-                <Nav.Link as={NavLink} to="/login">
+                <Nav.Link data-cy="login" as={NavLink} to="/login">
                   Login
                 </Nav.Link>
               </>
@@ -82,7 +88,12 @@ const Navigation = () => {
                 <Navbar.Text>
                   Logged in as: <strong>{loggedInUser.username}</strong>
                 </Navbar.Text>
-                <Nav.Link as={NavLink} to="/" onClick={handleLogout}>
+                <Nav.Link
+                  data-cy="logout"
+                  as={NavLink}
+                  to="/"
+                  onClick={handleLogout}
+                >
                   Logout
                 </Nav.Link>
               </>

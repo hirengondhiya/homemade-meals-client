@@ -25,3 +25,6 @@ yarn-error.log*
 
 # visual studio code settings
 .vscode
+
+#cypress testing
+cypress-rec.sh

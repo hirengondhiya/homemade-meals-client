@@ -29,12 +29,13 @@ function ShowAlert() {
       )}
       {info && (
         <Alert
+          data-cy="alert-success"
           variant="success"
           onClose={() => handleClose("setInfo")}
           dismissible
         >
           <Alert.Heading>{info.title || "Hurray!"}</Alert.Heading>
-          <p>{info.msg}</p>
+          <p data-cy="alert-msg">{info.msg}</p>
         </Alert>
       )}
     </Container>

@@ -67,12 +67,17 @@ const Register = ({ history }) => {
     <Container>
       <Row className="justify-content-center">
         <Col lg={4}>
-          <Form onSubmit={handleSubmit}>
+          <Form onSubmit={handleSubmit} data-cy="register-form">
             <h2>Register</h2>
-            {errorMessage && <p className="text-danger mt-3">{errorMessage}</p>}
+            {errorMessage && (
+              <p data-cy="validatio-error" className="text-danger mt-3">
+                {errorMessage}
+              </p>
+            )}
             <Form.Group>
               <Form.Label>Username</Form.Label>
               <Form.Control
+                data-cy="username"
                 required
                 type="text"
                 name="username"
@@ -83,6 +88,7 @@ const Register = ({ history }) => {
             <Form.Group>
               <Form.Label>Email</Form.Label>
               <Form.Control
+                data-cy="email"
                 required
                 type="email"
                 name="email"
@@ -95,6 +101,7 @@ const Register = ({ history }) => {
               <br />
               <Form.Label className="ml-3">
                 <Form.Check
+                  data-cy="radio-buyer"
                   type="radio"
                   name="role"
                   value="buyer"
@@ -107,6 +114,7 @@ const Register = ({ history }) => {
               <br />
               <Form.Label className="ml-3">
                 <Form.Check
+                  data-cy="radio-seller"
                   type="radio"
                   name="role"
                   value="seller"
@@ -121,6 +129,7 @@ const Register = ({ history }) => {
             <Form.Group>
               <Form.Label>Password</Form.Label>
               <Form.Control
+                data-cy="password"
                 required
                 type="password"
                 name="password"
@@ -128,6 +137,7 @@ const Register = ({ history }) => {
                 onChange={handleChange}
               />
               <Form.Control
+                data-cy="confirm-password"
                 required
                 type="password"
                 name="confirm"
@@ -136,7 +146,7 @@ const Register = ({ history }) => {
                 className="mt-3"
               />
             </Form.Group>
-            <Button variant="primary" type="submit">
+            <Button data-cy="submit-button" variant="primary" type="submit">
               Submit
             </Button>
           </Form>
